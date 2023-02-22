@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class Role {
 
     @EmbeddedId
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private RoleID RoleId;
 
     @Column(name = "RoleName", length = Integer.MAX_VALUE)

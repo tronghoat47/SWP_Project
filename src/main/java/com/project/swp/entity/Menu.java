@@ -15,6 +15,7 @@ import lombok.Setter;
 public class Menu {
     @Id
     @Column(name = "FoodID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int foodId;
 
     @ManyToOne(fetch = FetchType.LAZY)

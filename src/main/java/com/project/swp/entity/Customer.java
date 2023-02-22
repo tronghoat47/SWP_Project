@@ -17,10 +17,11 @@ public class Customer {
 
     @Id
     @Column(name = "CusID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cusID;
 
-    @Column(name = "UserNamme")
-    private String username;
+    @Column(name = "UserName")
+    private String userName;
 
     @Column(name = "[Password]")
     private String password;

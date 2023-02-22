@@ -16,6 +16,7 @@ public class OrderDetail {
 
     @Id
     @Column(name = "orderDetailId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderDetailId;
 
     @MapsId

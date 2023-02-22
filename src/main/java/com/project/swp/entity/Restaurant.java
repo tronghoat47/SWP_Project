@@ -17,6 +17,7 @@ public class Restaurant {
 
     @Id
     @Column(name = "ResID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int resID;
 
     @Column(name = "ResName", length = Integer.MAX_VALUE)

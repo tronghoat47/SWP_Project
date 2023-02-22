@@ -19,6 +19,7 @@ public class Invoice {
 
     @Id
     @Column(name = "invoiceId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int invoiceId;
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)

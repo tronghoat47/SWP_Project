@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class Rate {
 
     @EmbeddedId
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private RateId rateId;
 
     @Column(name = "Comment")
