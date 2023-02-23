@@ -45,7 +45,7 @@ public class Staff {
     @Column(name = "TimeWork")
     private String timeWork;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns({
             @JoinColumn(name = "RoleID", referencedColumnName="RoleID"),
             @JoinColumn(name = "ResID", referencedColumnName="ResID")

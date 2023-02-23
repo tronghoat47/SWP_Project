@@ -18,11 +18,11 @@ public class Order{
     @Column(name = "OrderID")
     private int orderId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CusID")
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EmpID")
     private Staff staff;
 
@@ -30,7 +30,7 @@ public class Order{
 //    @JoinColumn(name = "ResID")
 //    private Tableq tableq;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns({
             @JoinColumn(name = "TableqId", referencedColumnName="TableqId"),
             @JoinColumn(name = "ResID", referencedColumnName="ResID")

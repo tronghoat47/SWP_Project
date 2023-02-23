@@ -18,7 +18,7 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int foodId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ResID")
     private Restaurant restaurant;
 

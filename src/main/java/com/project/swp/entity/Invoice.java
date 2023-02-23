@@ -16,18 +16,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Data
 @Table(name = "Invoice")
 public class Invoice {
-
-    @Id
-    @Column(name = "invoiceId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int invoiceId;
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
-    private Order order;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FoodID", referencedColumnName = "FoodID")
-    private Menu menu;
+    @EmbeddedId
+    private InvoiceID invoiceID;
 
     @Column(name = "ActualQuantity")
     private int actualQuantity;

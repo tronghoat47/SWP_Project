@@ -15,11 +15,6 @@ public class Tableq {
     @EmbeddedId
     private TableqId tableId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("ResID")
-    @JoinColumn(name = "ResID", referencedColumnName = "ResID")
-    private Restaurant restaurant;
-
     @Column(name = "Type")
     private String type;
 

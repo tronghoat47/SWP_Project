@@ -12,12 +12,12 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class RateId implements Serializable {
+public class InvoiceID implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ResID", referencedColumnName = "ResID")
-    private Restaurant restaurant;
+    @JoinColumn(name = "OrderID", referencedColumnName = "OrderID")
+    private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CusID", referencedColumnName = "CusID")
-    private Customer customer;
+    @JoinColumn(name = "FoodID", referencedColumnName = "FoodID")
+    private Menu menu;
 }
