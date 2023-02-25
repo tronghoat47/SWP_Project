@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Login</title>
+
 </head>
 <body>
-    <h1>heelo</h1>
+    <div th:object="${list}">
+        <h1 th:text="${list.get(0).getCusName()}"></h1>
+    </div>
 </body>
 </html>

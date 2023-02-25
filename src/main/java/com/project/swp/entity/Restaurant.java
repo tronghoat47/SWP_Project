@@ -41,11 +41,11 @@ public class Restaurant {
     @Column(name = "CategoryRes", length = 100)
     private String categoryRes;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "ratingPoint")
+    private Float ratingPoint;
+
+    @ManyToOne
     @JoinColumn(name = "CompanyID")
     private Company company;
-
-    @Column(name = "RatingPoint")
-    private float ratingPoint;
 
 }
