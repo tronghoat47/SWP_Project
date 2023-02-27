@@ -47,5 +47,4 @@ public class Restaurant {
 
     @Column(name = "RatingPoint")
     private float ratingPoint;
-
 }

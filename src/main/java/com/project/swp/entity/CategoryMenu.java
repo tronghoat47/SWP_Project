@@ -13,7 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "CategoryMenu")
 public class CategoryMenu {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CateID")
