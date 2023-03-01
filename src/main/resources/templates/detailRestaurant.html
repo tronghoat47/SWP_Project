@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Detail</title>
+</head>
+<body>
+<h1>Restaurant Detail</h1>
+<h2 th:text="${detail.getResName()}"></h2>
+<p th:text="${detail.getCategoryRes()}"></p>
+<p th:text="${detail.getCity()}"></p>
+<h3>Menu</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="menu : ${listMenuDetailRes}">
+        <td th:text="${menu.getFoodName()}"></td>
+        <td th:text="${menu.getDescriptionFood()}"></td>
+        <td th:text="${menu.getPrice()}"></td>
+    </tr>
+    </tbody>
+</table>
+<form  th:action="@{/restaurant/customer/searchMenu}" method="post">
+    <input type="hidden" th:name="resID" th:value="${detail.getResID()}" />
+
+    <label for="foodName">Food Name:</label>
+    <input type="text" id="foodName" name="foodName" th:value="${foodName}" />
+
+    <label for="priceFrom">Price From:</label>
+    <input type="text" id="priceFrom" name="priceFrom" th:value="${priceFrom}" />
+
+    <label for="priceTo">Price To:</label>
+    <input type="text" id="priceTo" name="priceTo" th:value="${priceTo}" />
+
+    <label for="cateMenuID">Category Menu:</label>
+    <select id="cateMenuID" name="cateMenuID" >
+        <option value="">All</option>
+        <th:block th:each="cateMenu : ${listCategoryMenu}">
+            <option th:value="${cateMenu.getCateID()}" th:text="${cateMenu.getCateName()}"></option>
+        </th:block>
+    </select>
+
+    <button type="submit">Search</button>
+</form>
+</body>
+</html>
