@@ -37,7 +37,7 @@ public class Menu {
     @Column(name = "DescriptionFood")
     private String descriptionFood;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CateID")
     private CategoryMenu categoryMenu;
 }

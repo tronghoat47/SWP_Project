@@ -17,6 +17,7 @@ public class MenuService {
         return repo.findAll();
     }
 
+
     public void save(Menu menu){
         repo.save(menu);
     }
@@ -29,11 +30,6 @@ public class MenuService {
         throw new Exception("Could not find and food with ID: " + id);
     }
 
-//    public void updateMenu(int foodId, String foodName, String descriptionFood, String picture, Double price, Boolean statusFood, Integer cateID, Integer resID){
-//        repo.updateMenu(foodId, foodName, descriptionFood, picture, price, statusFood, cateID, resID);
-//    }
-
-
     public Menu deleteById(Integer id) throws Exception {
         Optional<Menu> menuOptional = repo.findById(id);
         if(menuOptional == null || menuOptional.isEmpty()){
@@ -44,4 +40,5 @@ public class MenuService {
         }
         return null;
     }
+
 }

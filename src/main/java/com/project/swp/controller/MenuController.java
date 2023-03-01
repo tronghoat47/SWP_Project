@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MenuController {
@@ -23,11 +25,6 @@ public class MenuController {
         return "menu";
     }
 
-    @GetMapping("/hhh")
-    public String showHome(){
-        return "home";
-    }
-
     @GetMapping("/menu/new")
     public String showNewForm(Model model){
         Menu menu = new Menu();
@@ -35,6 +32,7 @@ public class MenuController {
         model.addAttribute("pageTitle", "Add New Food");
         return "menu_form";
     }
+
 
     @PostMapping("/menu/save")
     public String addNewFood(Menu menu, RedirectAttributes ra){
@@ -44,7 +42,6 @@ public class MenuController {
         ra.addFlashAttribute("message", "Food has been save successfully");
         return "redirect:/menu";
     }
-
     @GetMapping("/menu/edit/{id}")
     public String updateMenu(@PathVariable("id") Integer id, Model model, RedirectAttributes ra){
         try{
@@ -57,7 +54,6 @@ public class MenuController {
             return "redirect:/menu";
         }
     }
-
 
     @GetMapping("/menu/delete/{id}")
     public String deleteFoodById(@PathVariable("id") Integer id, RedirectAttributes ra){

@@ -8,7 +8,7 @@
 </head>
 <body>
     <form th:action="@{/menu/save}" method="post" th:object="${menu}">
-        Food Id <input type="hidden" th:field="*{foodId}"/>
+        <input type="hidden" th:field="*{foodId}"/>
         Food Name: <input  type="text" th:field="*{foodName}"/><br>
         Description: <input  type="text"th:field="*{descriptionFood}"/><br>
         Link Image: <input  type="text" th:field="*{picture}"/><br>
