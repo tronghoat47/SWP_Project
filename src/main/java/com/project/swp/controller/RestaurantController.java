@@ -29,7 +29,7 @@ public class RestaurantController {
     public String  getDetailRestaurant(@PathVariable Integer id, Model model) {
         Restaurant restaurant = restaurantService.getDetailRes(id);
         model.addAttribute("detail", restaurant);
-        List<Menu> listMenuDetailRes = menuService.getListMenuByResId(restaurant);
+        List<Menu> listMenuDetailRes = menuService.getListMenuByResId(id);
         model.addAttribute("listMenuDetailRes", listMenuDetailRes);
         List<CategoryMenu> categoryMenus = categoryMenuService.getListCategory();
         model.addAttribute("listCategoryMenu", categoryMenus);
@@ -53,6 +53,5 @@ public class RestaurantController {
         model.addAttribute("listMenuDetailRes", listMenuDetailRes);
         return "detailRestaurant";
     }
-
 
 }

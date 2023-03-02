@@ -10,4 +10,8 @@ public interface OrderRepo extends JpaRepository<Order, Integer> {
     // Manager //
     List<Order> findAllByResId();
 
+    Order findByOrderId(int id);
+
+    Order deleteByOrderId(int id);
+
 }

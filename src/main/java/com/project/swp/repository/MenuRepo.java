@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MenuRepo extends JpaRepository<Menu, Integer> {
-    List<Menu> findMenusByRestaurant(Restaurant restaurant);
+    List<Menu> findMenusByRestaurant_ResID(int resId);
 
     @Query("select m from Menu m join Invoice i on m.foodId=i.invoiceID.menu.foodId " +
             "group by m.foodId order by sum (i.actualQuantity) desc limit 10")

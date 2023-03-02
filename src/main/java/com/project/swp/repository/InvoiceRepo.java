@@ -6,6 +6,8 @@ import com.project.swp.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-interface InvoiceRepo extends CrudRepository<Invoice, InvoiceID> {
+import java.util.List;
 
+public interface InvoiceRepo extends CrudRepository<Invoice, InvoiceID> {
+    List<Invoice> findAll();
 }

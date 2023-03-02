@@ -23,4 +23,8 @@ public class CustomerService {
     public  Customer findByEmail(Customer customer){
         return customerRepo.findOneByEmail(customer.getEmail()).orElse(null);
     }
+
+    public Customer findByUsername(String username){
+        return customerRepo.findOneByUserName(username).orElse(null);
+    }
 }
