@@ -8,7 +8,7 @@ import java.util.List;
 public interface OrderRepo extends JpaRepository<Order, Integer> {
 
     // Manager //
-    List<Order> findAllByResId();
+    List<Order> findByTable_TableId_Restaurant_ResID(int resID);
 
     Order findByOrderId(int id);
 

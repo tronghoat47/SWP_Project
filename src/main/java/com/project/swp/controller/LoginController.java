@@ -1,7 +1,9 @@
 package com.project.swp.controller;
 
 import com.project.swp.entity.Customer;
+import com.project.swp.entity.Staff;
 import com.project.swp.service.CustomerService;
+import com.project.swp.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,30 +22,44 @@ public class LoginController {
     @Autowired
     private HomeController homeController;
 
+    @Autowired
+    private StaffService staffService;
+
+    // Customer // ==============================================================================================
     @GetMapping("/customer")
     public String CustomerLoginForm(Model model){
         model.addAttribute("errorNotice", null);
-        return "login";
+        return "customer/login";
     }
     @PostMapping("/customer")
     public String CustomerLogin(@RequestParam String username, @RequestParam String password, Model model){
         Customer customer = customerService.authenticate(username, password);
         model.addAttribute("errorNotice", "Wrong username or password");
 
-        return customer == null ? "login" : homeController.dataHomePage(customer.getCusID(), model);
+//        return customer == null ? "customer/login" : homeController.dataHomePage(customer.getCusID(), model);
+
+        return customer == null ? "customer/login" : ("redirect:/home/customer/"+customer.getCusID());
+
     }
 
+
+    // Manager // ==============================================================================================
     @GetMapping("/manager")
     public String ManagerLoginForm(Model model){
         model.addAttribute("errorNotice", null);
-        return "login";
+        return "manager/managerlogin";
     }
+
     @PostMapping("/manager")
     public String ManagerLogin(@RequestParam String username, @RequestParam String password, Model model){
-        Customer customer = customerService.authenticate(username, password);
-        model.addAttribute("errorNotice", "Wrong username or password");
+        Staff staff = staffService.authenticate(username, password, "manager");
 
-        return customer == null ? "login" : homeController.dataHomePage(customer.getCusID(), model);
+        if(staff == null){
+            model.addAttribute("errorNotice", "Wrong username or password");
+            return "manager/managerlogin";
+        }
+
+        return staff == null ? "manager/managerlogin" : ("redirect:/home/manager/"+staff.getEmpId());
     }
 
 }

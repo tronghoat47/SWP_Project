@@ -27,4 +27,6 @@ public interface RestaurantRepo extends JpaRepository<Restaurant, Integer> {
 
 
     // Manager //
+
+    Restaurant findOneByResID(int id);
 }

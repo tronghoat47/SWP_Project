@@ -16,7 +16,7 @@ public class Role {
 
     @EmbeddedId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private RoleID RoleId;
+    private RoleID roleId;
 
     @Column(name = "RoleName", length = Integer.MAX_VALUE)
     private String roleName;
