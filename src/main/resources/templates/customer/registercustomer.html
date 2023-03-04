@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-  <form th:action="@{/register/customer}" method="post" th:object="${customer}">
-    <label>Username: </label><input type="text" th:field="*{userName}" name=""><br>
-    <label>Password: </label><input type="text" th:field="*{password}" name=""><br>
-    <label>Name: </label><input type="text" th:field="*{cusName}" name=""><br>
-    <label>Email: </label><input type="text" th:field="*{email}" name=""><br>
-    <label>Phone: </label><input type="text" th:field="*{phoneNumber}" name=""><br>
-    <input type="submit" value="Register">
-  </form>
-</body>
+    <body>
+        <h2 th:text="${error}"></h2>
+      <form th:action="@{/register/customer}" method="post" th:object="${customer}">
+        <label>Username: </label><input type="text" th:field="*{userName}" name=""><br>
+        <label>Password: </label><input type="text" th:field="*{password}" name=""><br>
+        <label>Name: </label><input type="text" th:field="*{cusName}" name=""><br>
+        <label>Email: </label><input type="text" th:field="*{email}" name=""><br>
+        <label>Phone: </label><input type="text" th:field="*{phoneNumber}" name=""><br>
+        <input type="submit" value="Register">
+      </form>
+    </body>
 </html>

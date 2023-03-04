@@ -4,6 +4,8 @@ import com.project.swp.entity.Rate;
 import com.project.swp.entity.RateId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RateRepo extends JpaRepository<Rate, RateId> {
+import java.util.List;
 
+public interface RateRepo extends JpaRepository<Rate, RateId> {
+    List<Rate> findByRateId_Restaurant_ResID(int resId);
 }

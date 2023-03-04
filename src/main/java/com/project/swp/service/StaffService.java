@@ -50,14 +50,6 @@ public class StaffService {
 
     // CRUD Staff // ================================================================================
 
-    public Restaurant getRestaurantByStaff(int id){
-        Staff staff = getStaffById(id);
-        return restaurantRepo.findOneByResID(staff.getRole().getRoleId().getRestaurant().getResID());
-    }
 
-    public List<Staff> getStaffByRestaurantID(int resId){
-        List<Staff> staffs = staffRepo.findByRole_RoleId_Restaurant_ResID(resId);
-        return staffs;
-    }
 
 }

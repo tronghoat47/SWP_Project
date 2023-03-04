@@ -2,23 +2,60 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
-    <h1 th:object="${staff}">
-        <span th:text="${staff.getEmpName()}"></span>
-    </h1>
 
-    <ul>
-        <th:block th:object="${restaurant}">
-            <li th:text="${restaurant.getResName()}"></li>
-        </th:block>
-    </ul>
+    <div style="border: 2px solid; margin-bottom: 20px" >
+        <h1 th:object="${staff}">
+            <span>Manager(this account) </span>
+            <span th:text="${staff.getEmpName()}"></span>
+        </h1>
 
-    <ul>
-        <th:block th:each="employee : ${listEmployee}">
-            <li th:text="${employee.getEmpName()}"></li>
-        </th:block>
-    </ul>
+    </div>
+
+    <div style="border: 2px solid; margin-bottom: 20px" th:object="${restaurant}">
+        <h1>Restaurant</h1>
+        <h3 th:text="${restaurant.getResName()+ ' in ' + restaurant.getCity()}"></h3>
+    </div>
+
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="employee : ${listEmployee}">
+        <h1>List Employee</h1>
+            <div>
+                <h3 th:text="${employee.getEmpName()}"></h3>
+                <h3 th:text="${employee.getEmail()}"></h3>
+            </div>
+    </div>
+
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="order : ${listOrder}">
+        <h1>List order</h1>
+        <a th:href="@{/order/{id}(id=${order.getOrderId()})}">
+            <div>
+                <h3 th:text="${order.getCustomer().getCusName()}"></h3>
+                <h3 th:text="${order.getOrderId()}"></h3>
+                <h3 th:text="${order.getOrderStatus()}"></h3>
+                <h3 th:text="${order.getTimeOrder()}"></h3>
+            </div>
+        </a>
+    </div>
+
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="rate : ${listRate}">
+        <h1>List rate (comment)</h1>
+            <div>
+                <h3 th:text="${rate.getRateId().getCustomer().getCusName()}"></h3>
+                <h3 th:text="${rate.getComment()}"></h3>
+                <h3 th:text="${rate.getRating()}"></h3>
+            </div>
+    </div>
+
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="menu : ${listMenu}">
+        <h1>List food(menu)</h1>
+        <div>
+            <h3 th:text="${menu.getCategoryMenu().getCateName()}"></h3>
+            <h3 th:text="${menu.getDescriptionFood()}"></h3>
+            <h3 th:text="${menu.getPrice()}"></h3>
+        </div>
+    </div>
+
 </body>
 </html>

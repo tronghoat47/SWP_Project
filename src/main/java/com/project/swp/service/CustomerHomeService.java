@@ -8,13 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CompanyService {
+public class CustomerHomeService {
     @Autowired
     private CompanyRepo companyRepo;
     public List<Company> getListCompany() {
         return companyRepo.findAll();
-    }
-    public Company findCompanyByName(int companyId) {
-        return companyRepo.findCompanyByCompanyID(companyId).orElse(null);
     }
 }

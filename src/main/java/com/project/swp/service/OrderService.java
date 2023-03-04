@@ -20,13 +20,17 @@ public class OrderService {
         orderRepo.save(order);
     }
 
-    public Order getById(int id) throws Exception {
-        return orderRepo.findByOrderId(id);
-    }
+
 
     public Order deleteById(int id) throws Exception {
         return orderRepo.deleteByOrderId(id);
     }
 
+    // Manger // ==========================================================================================
+
+    // Get Order by id //
+    public Order getOrderById(int id) {
+        return orderRepo.findByOrderId(id);
+    }
 
 }

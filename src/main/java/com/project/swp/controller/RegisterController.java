@@ -18,19 +18,25 @@ public class RegisterController {
     @Autowired
     private HomeController homeController;
 
-// Register for customer //
+    // Register for customer //
+
     @GetMapping("/customer")
     public String RegisterCusForm(Model model){
         Customer customer = new Customer();
         model.addAttribute("customer", customer);
         model.addAttribute("error", null);
-        return "registercustomer";
+        return "customer/registercustomer";
     }
 
     @PostMapping("/customer")
     public String RegisterCustomer(Customer customer,Model model){
         Customer temp = customerService.findByUsername(customer.getUserName());
-        return temp != null? "registercustomer" : homeController.dataHomePage(customer.getCusID(), model);
+        if(temp != null){
+            model.addAttribute("error", "username already exists");
+            return "customer/registercustomer";
+        }
+
+        return  ("redirect:/home/customer/" + customerService.createCustomer(customer).getCusID());
     }
 
 }

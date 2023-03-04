@@ -12,7 +12,7 @@ public class CustomerService {
     private CustomerRepo customerRepo;
 
     public Customer authenticate(String username, String password){
-        Customer customer = customerRepo.findOneByUserName(username).orElse(null);
+        Customer customer = customerRepo.findFirstByUserName(username).orElse(null);
         return (customer != null && customer.getPassword().equals(password)) ? customer : null;
     }
 
@@ -25,6 +25,6 @@ public class CustomerService {
     }
 
     public Customer findByUsername(String username){
-        return customerRepo.findOneByUserName(username).orElse(null);
+        return customerRepo.findFirstByUserName(username).orElse(null);
     }
 }
