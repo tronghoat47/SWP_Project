@@ -4,6 +4,7 @@ import com.project.swp.entity.Customer;
 import com.project.swp.entity.Staff;
 import com.project.swp.service.CustomerService;
 import com.project.swp.service.StaffService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,13 +33,17 @@ public class LoginController {
         return "customer/login";
     }
     @PostMapping("/customer")
-    public String CustomerLogin(@RequestParam String username, @RequestParam String password, Model model){
+    public String CustomerLogin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session){
         Customer customer = customerService.authenticate(username, password);
+//        session.invalidate();
+
+        if(customer != null){
+            session.setAttribute("customer", customer);
+            return ("redirect:/home/customer/"+customer.getCusID());
+        }
+
         model.addAttribute("errorNotice", "Wrong username or password");
-
-//        return customer == null ? "customer/login" : homeController.dataHomePage(customer.getCusID(), model);
-
-        return customer == null ? "customer/login" : ("redirect:/home/customer/"+customer.getCusID());
+        return "customer/login";
 
     }
 
@@ -51,15 +56,26 @@ public class LoginController {
     }
 
     @PostMapping("/manager")
-    public String ManagerLogin(@RequestParam String username, @RequestParam String password, Model model){
+    public String ManagerLogin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session){
         Staff staff = staffService.authenticate(username, password, "manager");
+//        session.invalidate();
 
-        if(staff == null){
-            model.addAttribute("errorNotice", "Wrong username or password");
-            return "manager/managerlogin";
+        if(staff != null){
+            session.setAttribute("manager", staff);
+            return ("redirect:/home/manager/"+staff.getEmpId());
         }
 
-        return staff == null ? "manager/managerlogin" : ("redirect:/home/manager/"+staff.getEmpId());
+        model.addAttribute("errorNotice", "Wrong username or password");
+        return "manager/managerlogin" ;
     }
+
+    // Logout // ======================================================================================================
+    @GetMapping("/logout")
+    public String Logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/home/default";
+    }
+
+
 
 }

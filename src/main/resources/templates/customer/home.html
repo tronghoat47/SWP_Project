@@ -5,39 +5,48 @@
     <title>Home Page</title>
 </head>
 <body>
-    <h1>Hot Restaurants:</h1>
-    <ul>
-        <th:block th:each="restaurant : ${listHotRestaurant}">
-            <li th:text="${restaurant.getResName()}"></li>
-        </th:block>
-    </ul>
 
-    <h1>Cities:</h1>
-    <ul>
-        <th:block th:each="city : ${listCity}">
-            <li th:text="${city}"></li>
-        </th:block>
-    </ul>
+    <div>
+        <h1 th:text="${session.customer.getCusName()}"></h1>
+        <a th:href="@{/login/logout}">
+            Logout
+        </a>
+    </div>
+
+    <h1>Hot Restaurants:</h1>
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="restaurant : ${listHotRestaurant}">
+        <div>
+            <h3 th:text="${restaurant.getResName()}"></h3>
+        </div>
+    </div>
+
+    <h1>Cities</h1>
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="city : ${listCity}">
+        <div>
+            <h3 th:text="${city}"></h3>
+        </div>
+    </div>
 
     <h1>Companies:</h1>
-    <ul>
-        <th:block th:each="company : ${listCompany}">
-            <li th:text="${company.getCompanyName()}"></li>
-        </th:block>
-    </ul>
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="company : ${listCompany}">
+        <div>
+            <h3 th:text="${company.getCompanyName()}"></h3>
+        </div>
+    </div>
 
-    <h1>Categories:</h1>
-    <ul>
-        <th:block th:each="category : ${listCategoryRes}">
-            <li th:text="${category}"></li>
-        </th:block>
-    </ul>
+    <h1>Category</h1>
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="category : ${listCategoryRes}">
+        <div>
+            <h3 th:text="${category}"></h3>
+        </div>
+    </div>
 
-    <h1>Hot Foods:</h1>
-    <ul>
-        <th:block th:each="food : ${listHotFood}">
-            <li th:text="${food.getFoodName()}"></li>
-        </th:block>
-    </ul>
+    <h1>Hot food</h1>
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="food : ${listHotFood}">
+        <div>
+            <h3 th:text="${food}"></h3>
+        </div>
+    </div>
+
 </body>
 </html>

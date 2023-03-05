@@ -13,10 +13,6 @@ import java.util.List;
 @RequestMapping(value = "/home")
 public class HomeController {
     @Autowired
-    private MenuService menuService;
-    @Autowired
-    private RestaurantService restaurantService;
-    @Autowired
     private CustomerHomeService customerHomeService;
     @Autowired
     private ManagerHomeService managerHomeService;
@@ -25,15 +21,15 @@ public class HomeController {
 
     @GetMapping("/customer/{id}")
     public String dataHomePage(@PathVariable int id, Model model) {
-        List<Restaurant> listHotRestaurant = restaurantService.getListHotRestaurant();
+        List<Restaurant> listHotRestaurant = customerHomeService.getListHotRestaurant();
         model.addAttribute("listHotRestaurant", listHotRestaurant);
-        List<String> listCity = restaurantService.getListCity();
+        List<String> listCity = customerHomeService.getListCity();
         model.addAttribute("listCity", listCity);
         List<Company> listCompany = customerHomeService.getListCompany();
         model.addAttribute("listCompany", listCompany);
-        List<String> listCategoryRes = restaurantService.getCategoryRes();
+        List<String> listCategoryRes = customerHomeService.getCategoryRes();
         model.addAttribute("listCategoryRes", listCategoryRes);
-        List<Menu> listHotFood = menuService.getListHotFood();
+        List<Menu> listHotFood = customerHomeService.getListHotFood();
         model.addAttribute("listHotFood", listHotFood);
         return "customer/home";
     }
@@ -54,5 +50,11 @@ public class HomeController {
         List<Menu> menuList = managerHomeService.getMenuByRestaurant(restaurant.getResID());
         model.addAttribute("listMenu", menuList);
         return "manager/mnghome";
+    }
+
+    // Default home // ==========================================================================================
+    @GetMapping("default")
+    public String HomeDefault(){
+        return "collection/defaultHome";
     }
 }

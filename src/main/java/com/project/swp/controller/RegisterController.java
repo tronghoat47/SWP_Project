@@ -2,6 +2,7 @@ package com.project.swp.controller;
 
 import com.project.swp.entity.Customer;
 import com.project.swp.service.CustomerService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ public class RegisterController {
     // Register for customer //
 
     @GetMapping("/customer")
-    public String RegisterCusForm(Model model){
+    public String RegisterCusForm(Model model, HttpSession session){
         Customer customer = new Customer();
         model.addAttribute("customer", customer);
         model.addAttribute("error", null);
@@ -38,5 +39,7 @@ public class RegisterController {
 
         return  ("redirect:/home/customer/" + customerService.createCustomer(customer).getCusID());
     }
+
+    // Register for company //
 
 }
