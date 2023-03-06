@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Update Order</title>
+</head>
+
+<body>
+
+<form method="POST" th:action="@{/order/update/{id}(id=${resID})}">
+
+  <input type="hidden" name="orderID" th:value="${order.orderId}" />
+
+  <label >Method of Payment:</label>
+  <input type="text" name="methodPayment" th:value="${order.methodPayment}" />
+  <br>
+
+  <label >Time of Cancellation:</label>
+  <input type="text" name="timeCancel" th:value="${order.timeCancel}" />
+  <br>
+
+  <label >Time of Order:</label>
+  <input type="text" name="timeOrder" th:value="${order.timeOrder}" />
+  <br>
+
+  <label >Total:</label>
+  <input type="text" name="total" th:value="${order.total}" />
+  <br>
+
+  <label >Employee ID:</label>
+  <input type="text" name="employeeID" th:value="${order.staff.empId}" />
+  <br>
+
+  <label >Table ID:</label>
+  <input type="text" name="tableID" th:value="${order.getTable().getTableId().getTableId()}" />
+  <br>
+
+  <button type="submit">Update Order</button>
+</form>
+
+</body>
+
+</html>

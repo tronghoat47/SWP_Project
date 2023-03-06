@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface RestaurantRepo extends JpaRepository<Restaurant, Integer> {
 
+
     // Customer //
     Optional<Restaurant> findRestaurantsByResID(int resId);
     public List<Restaurant> findTop6ByOrderByRatingPointDesc();
@@ -21,9 +22,9 @@ public interface RestaurantRepo extends JpaRepository<Restaurant, Integer> {
     @Query("select distinct r.categoryRes from Restaurant r")
     public List<String> findCategoryRest();
 
-    public List<Restaurant> findRestaurantsByCompanyAndCityContainingIgnoreCaseAndAndResNameContainingIgnoreCase(Company company, String city, String resName);
+    public List<Restaurant> findRestaurantsByCompanyAndCityContainingIgnoreCaseAndAndResNameContainingIgnoreCaseAndCategoryResContainsIgnoreCase(Company company, String city, String resName, String category);
 
-    public List<Restaurant> findRestaurantsByCityContainingIgnoreCaseAndAndResNameContainingIgnoreCase(String city, String resName);
+    public List<Restaurant> findRestaurantsByCityContainingIgnoreCaseAndAndResNameContainingIgnoreCaseAndCategoryResContainsIgnoreCase(String city, String resName, String category);
 
 
     // Manager //

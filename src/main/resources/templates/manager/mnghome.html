@@ -11,7 +11,6 @@
             <span>Manager(this account) </span>
             <span th:text="${staff.getEmpName()}"></span>
         </h1>
-
     </div>
 
     <div style="border: 2px solid; margin-bottom: 20px" th:object="${restaurant}">
@@ -19,14 +18,21 @@
         <h3 th:text="${restaurant.getResName()+ ' in ' + restaurant.getCity()}"></h3>
     </div>
 
+    <!-- LIST EMPLOYEE -->
+    <h1>List Employee</h1>
     <div style="border: 2px solid; margin-bottom: 20px" th:each="employee : ${listEmployee}">
-        <h1>List Employee</h1>
+        <a th:href="@{/home/manager/em/{id}(id=${employee.getEmpId()})}">
             <div>
                 <h3 th:text="${employee.getEmpName()}"></h3>
                 <h3 th:text="${employee.getEmail()}"></h3>
             </div>
+        </a>
     </div>
 
+    <!-- LIST ORDER -->
+    <div>
+        <a th:href="@{/order/new/{id}(id=${restaurant.getResID()})}">Add order</a>
+    </div>
     <div style="border: 2px solid; margin-bottom: 20px" th:each="order : ${listOrder}">
         <h1>List order</h1>
         <a th:href="@{/order/{id}(id=${order.getOrderId()})}">
@@ -37,8 +43,11 @@
                 <h3 th:text="${order.getTimeOrder()}"></h3>
             </div>
         </a>
+        <a th:href="@{/order/edit/{id}(id = ${order.orderId})}">Edit</a>
+        <a th:href="@{/order/delete/{id}(id = ${order.orderId})}">Delete</a>
     </div>
 
+    <!-- LIST RATE -->
     <div style="border: 2px solid; margin-bottom: 20px" th:each="rate : ${listRate}">
         <h1>List rate (comment)</h1>
             <div>
@@ -48,6 +57,7 @@
             </div>
     </div>
 
+    <!-- LIST MENU -->
     <div style="border: 2px solid; margin-bottom: 20px" th:each="menu : ${listMenu}">
         <h1>List food(menu)</h1>
         <div>

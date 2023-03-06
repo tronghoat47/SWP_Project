@@ -55,6 +55,9 @@ public class Order{
     @Column(name = "PhoneCustomer")
     private String phoneCustomer;
 
+    @Column(name = "Total")
+    private Double total;
+
 }
 
 

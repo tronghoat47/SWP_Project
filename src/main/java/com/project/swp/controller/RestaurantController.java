@@ -1,0 +1,71 @@
+package com.project.swp.controller;
+
+import com.project.swp.entity.*;
+import com.project.swp.service.*;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("restaurant")
+public class RestaurantController {
+    @Autowired
+    private RestaurantService restaurantService;
+    @Autowired
+    private MenuService menuService;
+    @Autowired
+    private CategoryMenuService categoryMenuService;
+    @Autowired
+    private OrderService orderService;
+
+    @GetMapping("/customer/{id}")
+    public String  getDetailRestaurant(@PathVariable Integer id, Model model) {
+        Restaurant restaurant = restaurantService.getDetailRes(id);
+        model.addAttribute("detail", restaurant);
+        List<Menu> listMenuDetailRes = menuService.getListMenuByResId(id);
+        model.addAttribute("listMenuDetailRes", listMenuDetailRes);
+        List<CategoryMenu> categoryMenus = categoryMenuService.getListCategory();
+        model.addAttribute("listCategoryMenu", categoryMenus);
+
+        Order order = new Order();
+        model.addAttribute("order", order);
+
+        return "customer/detailRestaurant";
+    }
+
+    @PostMapping("/customer/searchMenu")
+    public String getListMenuBySearch(@RequestParam(name = "resID") int resID, @RequestParam(required = false, name = "priceFrom", defaultValue = "" ) String priceFrom,
+                                      @RequestParam(required = false, name = "priceTo", defaultValue = "") String priceTo,
+                                      @RequestParam(required = false, name = "foodName", defaultValue = "") String foodName,
+                                      @RequestParam(required = false, name = "cateMenuID", defaultValue = "0") String cateMenuID,
+                                      Model model) {
+        Restaurant restaurant = restaurantService.getDetailRes(resID);
+        model.addAttribute("detail", restaurant);
+        List<CategoryMenu> categoryMenus = categoryMenuService.getListCategory();
+        model.addAttribute("listCategoryMenu", categoryMenus);
+        CategoryMenu categoryMenu = categoryMenuService.getCategoryMenuByCateID(Integer.parseInt(cateMenuID));
+        List<Menu> listMenuDetailRes = menuService.getListMenusBySearch(categoryMenu, foodName, priceFrom, priceTo, restaurant);
+        model.addAttribute("listMenuDetailRes", listMenuDetailRes);
+        return "customer/detailRestaurant";
+    }
+
+    @PostMapping("/customer/order/{id}")
+    public String infoOrder(@PathVariable int resID, @ModelAttribute("order") Order order, HttpSession session){
+
+        Customer customer = (Customer) session.getAttribute("customer");
+
+        order.setCustomer(customer);
+        order.setOrderStatus("Wait set");
+
+        orderService.save(order);
+        orderService.setResID(resID);
+
+        return "redirect:/restaurant/customer/" + resID;
+    }
+
+
+}

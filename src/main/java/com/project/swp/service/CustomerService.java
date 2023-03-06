@@ -4,6 +4,7 @@ import com.project.swp.entity.Customer;
 import com.project.swp.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CustomerService {
@@ -26,5 +27,14 @@ public class CustomerService {
 
     public Customer findByUsername(String username){
         return customerRepo.findFirstByUserName(username).orElse(null);
+    }
+
+    public Customer findByCusID(int cusID){
+        return customerRepo.findByCusID(cusID).orElse(null);
+    }
+
+    @Transactional
+    public  void customerUpdateAndAdd(Customer customer) {
+        customerRepo.save(customer);
     }
 }

@@ -21,9 +21,6 @@ public class LoginController {
     private CustomerService customerService;
 
     @Autowired
-    private HomeController homeController;
-
-    @Autowired
     private StaffService staffService;
 
     // Customer // ==============================================================================================

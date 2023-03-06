@@ -5,6 +5,7 @@
     <title>Detail order</title>
 </head>
 <body>
+
     <div th:object="${order}">
         <h1 th:text="${order.getCustomer().getCusName()}"></h1>
         <h1 th:text="${order.getOrderStatus()}"></h1>

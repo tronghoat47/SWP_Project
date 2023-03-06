@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Staff List</title>
 </head>
 <body>
-
+<h1>Staff: <span th:text="${staff.getEmpId()}"></span></h1>
+<table>
+    <thead>
+    <tr>
+        <th>getEmpId</th>
+        <th>getEmpName</th>
+        <th>getEmail</th>
+        <th>getPassword</th>
+        <th>getPhoneNumber</th>
+        <th>getSalary</th>
+        <th>getStatus</th>
+        <th>getTimeWork</th>
+        <th>getUserName</th>
+        <th>getRoleName</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${staff.getEmpId()}"></td>
+        <td th:text="${staff.getEmpName()}"></td>
+        <td th:text="${staff.getEmail()}"></td>
+        <td th:text="${staff.getPassword()}"></td>
+        <td th:text="${staff.getPhoneNumber()}"></td>
+        <td th:text="${staff.getSalary()}"></td>
+        <td th:text="${staff.getStatus()}"></td>
+        <td th:text="${staff.getTimeWork()}"></td>
+        <td th:text="${staff.getUserName()}"></td>
+        <td th:text="${staff.getRole().getRoleName()}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/staff/edit/{id}(id = ${staff.empId})}">Edit</a>
+<a th:href="@{/staff/delete/{id}(id = ${staff.empId})}">Delete</a>
 </body>
 </html>
