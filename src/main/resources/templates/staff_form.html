@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Staff</title>
+</head>
+<body>
+<h1>Add New Staff</h1>
+<form th:action="@{/staff/save/{id}(id=${resID})}" method="post">
+
+  <label for="empName">Employee Name:</label>
+  <input type="text" name="empName" id="empName" required />
+  <br>
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email" required />
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" name="password" id="password" required />
+  <br>
+  <label for="phoneNumber">Phone Number:</label>
+  <input type="tel" name="phoneNumber" id="phoneNumber" required />
+  <br>
+  <label for="picture">Picture:</label>
+  <input type="text" name="picture" id="picture" />
+  <br>
+  <label for="salary">Salary:</label>
+  <input type="number" name="salary" id="salary" required />
+  <br>
+  <label for="status">Status:</label>
+  <input type="text" name="status" id="status" required />
+  <br>
+<!--  <label for="timeWork">Time Work:</label>-->
+<!--  <input type="text" name="timeWork" id="timeWork" required />-->
+<!--  <br>-->
+  <label for="userName">Username:</label>
+  <input type="text" name="userName" id="userName" required />
+  <br>
+  <label for="roleID">Role:</label>
+  <select name="roleID" id="roleID">
+    <option value="1">Role 1</option>
+    <option value="2">Role 2</option>
+  </select>
+  <br>
+
+<!--  <label for="roleID">roleID:</label>-->
+<!--  <input type="number" name="roleID" id="roleID" required />-->
+<!--  <br>-->
+  <input type="submit" value="Submit" />
+</form>
+</body>
+</html>

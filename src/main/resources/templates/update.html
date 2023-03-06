@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<h1>Add New Food</h1>
+
+<form th:action="@{/menu/menu/update/{id}(id=${menu.restaurant.getResID()})}" method="post">
+  <input type="hidden" name="foodID" id="foodID" th:value="${menu.foodId}" />
+
+  <label for="foodName">Food Name:</label>
+  <input type="text" name="foodName" id="foodName" th:value="${menu.foodName}" />
+
+  <label for="descriptionFood">Description:</label>
+  <textarea name="descriptionFood" id="descriptionFood" th:value="${menu.descriptionFood}"></textarea>
+
+  <label for="picture">Picture:</label>
+  <input type="text" name="picture" id="picture" th:value="${menu.picture}"/>
+
+  <label for="price">Price:</label>
+  <input type="number" name="price" id="price" th:value="${menu.price}"/>
+
+  <label for="cateID">CateID:</label>
+  <input type="number" name="cateID" id="cateID" th:value="${menu.categoryMenu.cateID}"/>
+  <button type="submit">Update</button>
+</form>
+</body>
+</html>

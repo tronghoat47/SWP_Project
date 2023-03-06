@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>List of Comments</title>
+</head>
+<body>
+<h1>List of Comments for Restaurant:
+  <span th:text="${detail.getResID()}" th:object="${detail}"></span></h1>
+<table>
+  <thead>
+  <tr>
+    <th>User</th>
+    <th>Comment</th>
+    <th>Rating</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="rate : ${listCommnetByResID}">
+    <td th:text="${rate.rateId.customer.getCusName()}"></td>
+    <td th:text="${rate.getComment()}"></td>
+    <td th:text="${rate.getRating()}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

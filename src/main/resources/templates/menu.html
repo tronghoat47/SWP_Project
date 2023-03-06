@@ -7,43 +7,37 @@
 </head>
 <body>
 <div class="container-fluid text-center" th:object="${listMenu}">
-    <h1>Manager menu</h1>
     <div class="text-center">
-        <a th:href="@{/menu/new}">Addnew</a>
+        <a th:href="@{/menu/menu/new/{id}(id=${detail.getResID()})}">Addnew</a>
     </div>
-<!--    <div th:if="${message}" class="alert alert-success text-center">-->
-<!--        [[${message}]]-->
-<!--    </div>-->
-    <div>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>cateID</th>
-                <th>Picture</th>
-                <th>Status</th>
-                <th>Resid</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody class="tbody">
-            <th:block th:each="user : ${listMenu}">
-                <tr>
-                    <td th:text="${user.getFoodId()}"></td>
-                    <td th:text="${user.getFoodName()}"></td>
-                    <td th:text="${user.getDescriptionFood()}"></td>
-<!--                    <td th:text="${user.getCategoryMenu().getCateID()}"></td>-->
-                    <td th:text="${user.getPicture()}"></td>
-                    <td th:text="${user.isStatusFood()}"></td>
-<!--                    <td th:text="${user.getRestaurant().getResID()}"></td>-->
+    <h1>Restaurant Detail</h1>
+    <p>Name: <span th:text="${detail.getResID()}"></span></p>
+    <p>Address: <span th:text="${detail.getCity()}"></span></p>
+    <p>Phone: <span th:text="${detail.getResName()}"></span></p>
 
-                    <td>
-                        <a th:href="@{'/menu/edit/'+ ${user.getFoodId()}}">Edit</a>
-                        <a th:href="@{'/menu/delete/'+ ${user.getFoodId()}}">Delete</a>
-                    </td>
-                </tr>
+    <h2>Menu</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="menu : ${listMenuDetailRes}">
+        <tr>
+            <td th:text="${menu.getFoodId()}"></td>
+            <td th:text="${menu.getFoodName()}"></td>
+            <td th:text="${menu.getPrice()}"></td>
+<!--            <td th:text="${menu.categoryMenu.getCateID()}"></td>-->
+            <td th:text="${menu.restaurant.getResID()}"></td>
+            <td th:text="${menu.isStatusFood()}"></td>
+            <td>
+                <a th:href="@{/menu/menu/edit/{id}(id = ${menu.foodId})}">Edit</a>
+                <a th:href="@{/menu/menu/delete/{id}(id = ${menu.foodId})}">Delete</a>
+            </td>
+        </tr>
             </th:block>
             </tbody>
         </table>

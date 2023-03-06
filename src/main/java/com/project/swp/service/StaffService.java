@@ -1,5 +1,7 @@
 package com.project.swp.service;
 
+import com.project.swp.entity.CategoryMenu;
+import com.project.swp.entity.Restaurant;
 import com.project.swp.entity.Staff;
 import com.project.swp.repository.StaffRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,14 @@ public class StaffService {
     }
     public void save(Staff staff){
         staffRepo.save(staff);
+    }
+
+    public Staff getDetailStaff(Integer id) {
+        return staffRepo.findById(id).orElse(null);
+    }
+
+    public List<Staff> getEmployeeByResID(int resID){
+        return staffRepo.findStaffByRole_RoleId_Restaurant_ResID(resID);
     }
 
     public Staff getId(Integer id) throws Exception {

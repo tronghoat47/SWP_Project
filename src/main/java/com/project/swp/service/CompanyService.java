@@ -17,4 +17,10 @@ public class CompanyService {
         return  companyRepo.findAll();
     }
 
+    public void save(Company company){
+        companyRepo.save(company);
+    }
+
+
+
 }

@@ -7,20 +7,31 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 </head>
 <body>
-    <form th:action="@{/menu/save}" method="post" th:object="${menu}">
-        <input type="hidden" th:field="*{foodId}"/>
-        Food Name: <input  type="text" th:field="*{foodName}"/><br>
-        Description: <input  type="text"th:field="*{descriptionFood}"/><br>
-        Link Image: <input  type="text" th:field="*{picture}"/><br>
-        Price: <input  type="text"th:field="*{price}"/><br>
+<h1>Add New Food</h1>
 
-        <button type="submit" class="btn btn-secondary">Save</button>
-        <button type="button" class="btn btn-secondary" onclick="cancelForm()">Cancel</button>
-    </form>
+<form th:action="@{/menu/menu/save/{id}(id=${resID})}" method="post">
+
+    <label for="foodName">Food Name:</label>
+    <input type="text" name="foodName" id="foodName" />
+
+    <label for="descriptionFood">Description:</label>
+    <textarea name="descriptionFood" id="descriptionFood" ></textarea>
+
+    <label for="picture">Picture:</label>
+    <input type="text" name="picture" id="picture" />
+
+    <label for="price">Price:</label>
+    <input type="number" name="price" id="price"/>
+
+    <label for="cateID">Category:</label>
+    <select name="cateID" id="cateID">
+        <option value="2">Category 2</option>
+        <option value="3">Category 3</option>
+        <option value="4">Category 4</option>
+    </select>
+    <button type="submit">Add Food</button>
+</form>
+
+
 </body>
-<script type="text/javascript">
-    function cancelForm(){
-        window.location = "/menu";
-    }
-</script>
 </html>

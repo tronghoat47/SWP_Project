@@ -1,7 +1,9 @@
 package com.project.swp.service;
 
 import com.project.swp.entity.Order;
+import com.project.swp.entity.Restaurant;
 import com.project.swp.repository.OrderRepo;
+import com.project.swp.repository.RestaurantRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,12 @@ public class OrderService {
         orderRepo.save(order);
     }
 
-    public Order getId(Integer id) throws Exception {
-        Optional<Order> orderOptional = orderRepo.findById(id);
+    public List<Order> getListOrderByResID(int resID){
+        return orderRepo.findOrdersByTable_TableId_Restaurant_ResID(resID);
+    }
+
+    public Order getIDOrder(int id) throws Exception {
+        Optional<Order> orderOptional = orderRepo.findOrderByOrderId(id);
         try{
             if(orderOptional.isPresent()){
                 return orderOptional.get();

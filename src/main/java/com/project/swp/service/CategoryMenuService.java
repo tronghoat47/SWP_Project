@@ -2,6 +2,7 @@ package com.project.swp.service;
 
 import com.project.swp.entity.CategoryMenu;
 import com.project.swp.entity.Menu;
+import com.project.swp.entity.Restaurant;
 import com.project.swp.repository.CategoryMenuRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ public class CategoryMenuService {
 
     public List<CategoryMenu> listAllCategoryMenu(){
         return categoryMenuRepo.findAll();
+    }
+
+
+    public CategoryMenu getDetailCate(Integer id) {
+        return categoryMenuRepo.findById(id).orElse(null);
     }
 
     public void save(CategoryMenu categoryMenu){

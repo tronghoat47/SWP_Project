@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Staff List</title>
+</head>
+<body>
+<h1>Staff List for Restaurant:
+  <span th:text="${resID.getResID()}"></span></h1>
+<a th:href="@{/staff/new/{id}(id=${resID.getResID()})}" th:object="${resID}">Addnew</a>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Phone</th>
+    <th>Phone</th>
+    <th>Phone</th>
+    <th>Phone</th>
+    <th>Phone</th>
+    <th>Phone</th>
+    <th>Phone</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="staff : ${listStaffByResID}">
+    <td th:text="${staff.getEmpId()}"></td>
+    <td th:text="${staff.getEmpName()}"></td>
+    <td th:text="${staff.getEmail()}"></td>
+    <td th:text="${staff.getPassword()}"></td>
+    <td th:text="${staff.getPhoneNumber()}"></td>
+    <td th:text="${staff.getSalary()}"></td>
+    <td th:text="${staff.getStatus()}"></td>
+    <td th:text="${staff.getTimeWork()}"></td>
+    <td th:text="${staff.getUserName()}"></td>
+    <td th:text="${staff.getRole().getRoleId().getRoleId()}"></td>
+    <td>
+      <a th:href="@{/staff/edit/{id}(id = ${staff.empId})}">Edit</a>
+      <a th:href="@{/staff/delete/{id}(id = ${staff.empId})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.project.swp.service;
 
+import com.project.swp.entity.Order;
 import com.project.swp.entity.Rate;
 
 import com.project.swp.repository.RateRepo;
@@ -15,6 +16,10 @@ public class RateService {
 
     public List<Rate> getComment(){
         return rateRepo.findAll();
+    }
+
+    public List<Rate> getListCommnetByResID(int resID){
+        return rateRepo.findRatesByRateId_Restaurant_ResID(resID);
     }
 
 }

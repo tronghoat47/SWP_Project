@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RateRepo extends JpaRepository<Rate, RateId> {
 
-    public List<Rate> findAll();
+    List<Rate> findRatesByRateId_Restaurant_ResID(int resID);
 
 }
