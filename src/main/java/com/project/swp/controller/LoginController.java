@@ -36,7 +36,7 @@ public class LoginController {
 
         if(customer != null){
             session.setAttribute("customer", customer);
-            return ("redirect:/home/customer/"+customer.getCusID());
+            return ("redirect:/home/customer");
         }
 
         model.addAttribute("errorNotice", "Wrong username or password");
@@ -59,11 +59,11 @@ public class LoginController {
 
         if(staff != null){
             session.setAttribute("manager", staff);
-            return ("redirect:/home/manager/"+staff.getEmpId());
+            return ("redirect:/home/manager");
         }
 
         model.addAttribute("errorNotice", "Wrong username or password");
-        return "manager/managerlogin" ;
+        return "manager/xmanagerlogin" ;
     }
 
     // Logout // ======================================================================================================

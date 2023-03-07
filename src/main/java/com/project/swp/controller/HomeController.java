@@ -82,8 +82,8 @@ public class HomeController {
     }
 
     @GetMapping("/manager/em/{id}")
-    public String DetailEmpManager(@PathVariable int empId, Model model){
-        Staff staff = staffService.getStaffById(empId);
+    public String DetailEmpManager(@PathVariable int id, Model model){
+        Staff staff = staffService.getStaffById(id);
         model.addAttribute("staff", staff);
         return "manager/employeeDetail";
     }

@@ -11,6 +11,10 @@
             <span>Manager(this account) </span>
             <span th:text="${staff.getEmpName()}"></span>
         </h1>
+
+        <a th:href="@{/login/logout}">
+            Logout
+        </a>
     </div>
 
     <div style="border: 2px solid; margin-bottom: 20px" th:object="${restaurant}">
