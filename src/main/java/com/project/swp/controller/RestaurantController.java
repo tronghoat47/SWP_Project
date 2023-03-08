@@ -54,15 +54,21 @@ public class RestaurantController {
     }
 
     @PostMapping("/customer/order/{id}")
-    public String infoOrder(@PathVariable int id, @ModelAttribute("order") Order order, HttpSession session){
+    public String infoOrder(@PathVariable int id, @ModelAttribute("order") Order order,
+                            @RequestParam("dateOrder") String dateOrder,
+                            @RequestParam("timeOrderFrom") String timeOrderFrom,
+                            @RequestParam("timeOrderTo") String timeOrderTo,
+                            HttpSession session){
 
         Customer customer = (Customer) session.getAttribute("customer");
 
         order.setCustomer(customer);
         order.setOrderStatus("Wait set");
-
+        String timeOrder = dateOrder + timeOrderFrom + timeOrderTo;
+        order.setTimeOrder(timeOrder);
         orderService.save(order);
         orderService.setResID(id);
+
 
         return "redirect:/restaurant/customer/" + id;
     }
