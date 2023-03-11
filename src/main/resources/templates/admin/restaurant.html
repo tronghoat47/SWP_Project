@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Title</title>
 </head>
 <body>
 
@@ -47,18 +47,18 @@
                 <h3 th:text="${order.getTimeOrder()}"></h3>
             </div>
         </a>
-        <a th:href="@{/order/update/{id}(id = ${order.orderId})}">Edit</a>
+        <a th:href="@{/order/edit/{id}(id = ${order.orderId})}">Edit</a>
         <a th:href="@{/order/delete/{id}(id = ${order.orderId})}">Delete</a>
     </div>
 
     <!-- LIST RATE -->
     <div style="border: 2px solid; margin-bottom: 20px" th:each="rate : ${listRate}">
         <h1>List rate (comment)</h1>
-            <div>
-                <h3 th:text="${rate.getRateId().getCustomer().getCusName()}"></h3>
-                <h3 th:text="${rate.getComment()}"></h3>
-                <h3 th:text="${rate.getRating()}"></h3>
-            </div>
+        <div>
+            <h3 th:text="${rate.getRateId().getCustomer().getCusName()}"></h3>
+            <h3 th:text="${rate.getComment()}"></h3>
+            <h3 th:text="${rate.getRating()}"></h3>
+        </div>
     </div>
 
     <!-- LIST MENU -->
@@ -68,6 +68,16 @@
             <h3 th:text="${menu.getCategoryMenu().getCateName()}"></h3>
             <h3 th:text="${menu.getDescriptionFood()}"></h3>
             <h3 th:text="${menu.getPrice()}"></h3>
+        </div>
+    </div>
+
+    <!-- REVENUE -->
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="revenue : ${listRevenue}">
+        <h1>List food(menu)</h1>
+        <div>
+            <h3 th:text="${revenue.getMonth()}"></h3>
+            <h3 th:text="${revenue.getYear()}"></h3>
+            <h3 th:text="${revenue.getRevenue()}"></h3>
         </div>
     </div>
 

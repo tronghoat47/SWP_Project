@@ -46,24 +46,31 @@ public class LoginController {
 
 
     // Manager // ==============================================================================================
-    @GetMapping("/manager")
+    @GetMapping("/staff")
     public String ManagerLoginForm(Model model){
         model.addAttribute("errorNotice", null);
         return "manager/managerlogin";
     }
 
-    @PostMapping("/manager")
+    @PostMapping("/staff")
     public String ManagerLogin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session){
-        Staff staff = staffService.authenticate(username, password, "manager");
+        Staff staff = staffService.authenticate(username, password);
 //        session.invalidate();
 
         if(staff != null){
-            session.setAttribute("manager", staff);
-            return ("redirect:/home/manager");
+            session.setAttribute("staff", staff);
+
+            if(staff.getRole().getRoleName().equals("manager")){
+                return ("redirect:/home/manager");
+            }else if(staff.getRole().getRoleName().equals("admin")){
+                return ("redirect:/home/admin");
+            }else {
+                return ("redirect:/home/employee");
+            }
         }
 
         model.addAttribute("errorNotice", "Wrong username or password");
-        return "manager/xmanagerlogin" ;
+        return "manager/managerlogin" ;
     }
 
     // Logout // ======================================================================================================

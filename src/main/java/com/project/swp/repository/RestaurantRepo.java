@@ -30,4 +30,9 @@ public interface RestaurantRepo extends JpaRepository<Restaurant, Integer> {
     // Manager //
 
     Restaurant findOneByResID(int id);
+
+
+    // Admin //
+
+    List<Restaurant> findByCompany_CompanyID(int companyID);
 }

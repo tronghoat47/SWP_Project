@@ -5,6 +5,8 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -37,11 +39,11 @@ public class Order{
     })
     private Tableq table;
 
-    @Column(name = "TimeOrder")
-    private String timeOrder;
+    @Column(name = "TimeOrder", columnDefinition = "DATETIME")
+    private LocalDateTime timeOrder;
 
-    @Column(name = "TimeCancel")
-    private String timeCancel;
+    @Column(name = "TimeCancel", columnDefinition = "DATETIME")
+    private LocalDateTime timeCancel;
 
     @Column(name = "MethodPayment")
     private String methodPayment;

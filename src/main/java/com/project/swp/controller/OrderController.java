@@ -3,6 +3,8 @@ package com.project.swp.controller;
 import com.project.swp.entity.Order;
 import com.project.swp.entity.Staff;
 import com.project.swp.service.OrderService;
+import com.project.swp.service.RestaurantService;
+import com.project.swp.service.TableService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -19,6 +22,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private TableService tableService;
+
     @GetMapping("/{id}")
     public String getOrderDetail(@PathVariable int id, Model model){
         Order order =  orderService.getOrderById(id);
@@ -26,7 +35,7 @@ public class OrderController {
         return "collection/detailOrder";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/update/{id}")
     public String updateOrder(@PathVariable("id") int id, Model model, RedirectAttributes ra){
         try{
             Order order = orderService.getById(id);
@@ -39,25 +48,14 @@ public class OrderController {
         }
     }
 
-
-    @PostMapping("/update/{id}")
-    public String updateMenu(@PathVariable int id,
-                             @RequestParam(value = "orderID") int orderID,
-                             @RequestParam(value = "methodPayment") String methodPayment,
-                             @RequestParam(value = "timeCancel") String timeCancle,
-                             @RequestParam(value = "timeOrder")String timeOrder,
-                             @RequestParam(value = "total") double total,
-//                             @RequestParam(value = "tableID") String tableID,
-                             @RequestParam(value = "employeeID") int employeeID,
-                             HttpSession session){
-        Order orderCheck = orderService.getById(orderID);
-        Staff staff = (Staff) session.getAttribute("manager");
-        orderCheck.setMethodPayment(methodPayment);
-        orderCheck.setTimeOrder(timeOrder);
-        orderCheck.setTimeCancel(timeCancle);
-        orderCheck.setTotal(total);
-        orderCheck.setStaff(staff);
-        orderService.save(orderCheck);
+    @PutMapping("/update/{id}")
+    public String updateMenu(@ModelAttribute("order") Order order, HttpSession session){
+        Staff staff = (Staff) session.getAttribute("staff");
+        order.setStaff(staff);
+        if(order.getStaff() == null){
+            order.setStaff(staff);
+        }
+        orderService.save(order);
         return "redirect:/home/manager";
     }
 

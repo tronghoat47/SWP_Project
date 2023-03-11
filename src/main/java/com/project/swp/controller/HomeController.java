@@ -1,5 +1,6 @@
 package com.project.swp.controller;
 
+import com.project.swp.DTO.RevenueDTO;
 import com.project.swp.entity.*;
 import com.project.swp.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,9 @@ public class HomeController {
     private CompanyService companyService;
     @Autowired
     private StaffService staffService;
+
+    @Autowired
+    private AdminHomeService adminHomeService;
 
     // Customer place // =========================================================================================
 
@@ -66,18 +70,10 @@ public class HomeController {
     // Manager place // =========================================================================================
     @GetMapping("/manager")
     public String ManagerHome(Model model, HttpSession session) {
-        Staff staff = (Staff) session.getAttribute("manager");
+        Staff staff = (Staff) session.getAttribute("staff");
         model.addAttribute("staff", staff);
         Restaurant restaurant = managerHomeService.getRestaurantByStaff(staff.getEmpId());
-        model.addAttribute("restaurant", restaurant);
-        List<Staff> listEmployee = managerHomeService.getStaffByRestaurantID(restaurant.getResID());
-        model.addAttribute("listEmployee", listEmployee);
-        List<Order> orderList = managerHomeService.getOrderByResID(restaurant.getResID());
-        model.addAttribute("listOrder", orderList);
-        List<Rate> rateList = managerHomeService.getAllRateByRestaurant(restaurant.getResID());
-        model.addAttribute("listRate", rateList);
-        List<Menu> menuList = managerHomeService.getMenuByRestaurant(restaurant.getResID());
-        model.addAttribute("listMenu", menuList);
+        getDetailRestaurant(model, restaurant);
         return "manager/mnghome";
     }
 
@@ -88,9 +84,48 @@ public class HomeController {
         return "manager/employeeDetail";
     }
 
+    // Admin Place // ==========================================================================================
+
+    @GetMapping("/admin")
+    public String AdminHome(Model model, HttpSession session) {
+        Staff staff = (Staff) session.getAttribute("staff");
+        model.addAttribute("staff", staff);
+        
+        List<Restaurant> listRes = adminHomeService.getAllRestaurantByCompany(staff.getCompany().getCompanyID());
+        model.addAttribute("listRes", listRes);
+        return "admin/adminHome";
+    }
+
+    @GetMapping("/admin/restaurant/{id}")
+    public String AdminHomeRestaurant(@PathVariable int id, Model model, HttpSession session) {
+        Restaurant restaurant = restaurantService.getDetailRes(id);
+        getDetailRestaurant(model, restaurant);
+
+        Staff staff = (Staff) session.getAttribute("staff");
+        model.addAttribute("staff", staff);
+
+
+        List<RevenueDTO> listRevenue = adminHomeService.getRevenueByMonth(restaurant.getResID());
+        model.addAttribute("listRevenue", listRevenue);
+        return "admin/restaurant";
+    }
+
+    private void getDetailRestaurant(Model model, Restaurant restaurant) {
+        model.addAttribute("restaurant", restaurant);
+        List<Staff> listEmployee = managerHomeService.getStaffByRestaurantID(restaurant.getResID());
+        model.addAttribute("listEmployee", listEmployee);
+        List<Order> orderList = managerHomeService.getOrderByResID(restaurant.getResID());
+        model.addAttribute("listOrder", orderList);
+        List<Rate> rateList = managerHomeService.getAllRateByRestaurant(restaurant.getResID());
+        model.addAttribute("listRate", rateList);
+        List<Menu> menuList = managerHomeService.getMenuByRestaurant(restaurant.getResID());
+        model.addAttribute("listMenu", menuList);
+    }
+
     // Default home // ==========================================================================================
     @GetMapping("default")
     public String HomeDefault(){
         return "collection/defaultHome";
     }
+
 }
