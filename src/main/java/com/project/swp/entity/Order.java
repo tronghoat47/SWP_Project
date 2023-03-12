@@ -28,16 +28,16 @@ public class Order{
     @JoinColumn(name = "EmpID")
     private Staff staff;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ResID")
-//    private Tableq tableq;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumns({
+//            @JoinColumn(name = "TableqId", referencedColumnName="TableqId"),
+//            @JoinColumn(name = "ResID", referencedColumnName="ResID")
+//    })
+//    private Tableq table;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumns({
-            @JoinColumn(name = "TableqId", referencedColumnName="TableqId"),
-            @JoinColumn(name = "ResID", referencedColumnName="ResID")
-    })
-    private Tableq table;
+    @JoinColumn(name = "ResID")
+    private Restaurant restaurant;
 
     @Column(name = "TimeOrder", columnDefinition = "DATETIME")
     private LocalDateTime timeOrder;
@@ -59,6 +59,9 @@ public class Order{
 
     @Column(name = "Total")
     private Double total;
+
+    @Column(name = "StringTable")
+    private String stringTable;
 
 }
 

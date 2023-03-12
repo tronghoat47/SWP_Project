@@ -1,8 +1,12 @@
 package com.project.swp.controller;
 
+import com.project.swp.entity.Company;
 import com.project.swp.entity.Customer;
+import com.project.swp.entity.Restaurant;
 import com.project.swp.entity.Staff;
+import com.project.swp.service.CompanyService;
 import com.project.swp.service.CustomerService;
+import com.project.swp.service.RestaurantService;
 import com.project.swp.service.StaffService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,11 @@ public class LoginController {
     @Autowired
     private StaffService staffService;
 
+    @Autowired
+    private CompanyService companyService;
+    @Autowired
+    private RestaurantService restaurantService;
+
     // Customer // ==============================================================================================
     @GetMapping("/customer")
     public String CustomerLoginForm(Model model){
@@ -32,7 +41,6 @@ public class LoginController {
     @PostMapping("/customer")
     public String CustomerLogin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session){
         Customer customer = customerService.authenticate(username, password);
-//        session.invalidate();
 
         if(customer != null){
             session.setAttribute("customer", customer);
@@ -41,7 +49,6 @@ public class LoginController {
 
         model.addAttribute("errorNotice", "Wrong username or password");
         return "customer/login";
-
     }
 
 
@@ -55,15 +62,13 @@ public class LoginController {
     @PostMapping("/staff")
     public String ManagerLogin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session){
         Staff staff = staffService.authenticate(username, password);
-//        session.invalidate();
 
         if(staff != null){
             session.setAttribute("staff", staff);
-
+            Restaurant restaurant = restaurantService.getDetailRes(staff.getRole().getRoleId().getRestaurant().getResID());
+            session.setAttribute("restaurant", restaurant);
             if(staff.getRole().getRoleName().equals("manager")){
                 return ("redirect:/home/manager");
-            }else if(staff.getRole().getRoleName().equals("admin")){
-                return ("redirect:/home/admin");
             }else {
                 return ("redirect:/home/employee");
             }
@@ -73,13 +78,32 @@ public class LoginController {
         return "manager/managerlogin" ;
     }
 
+    // Administrator // ==============================================================================================
+
+    @GetMapping("/admin")
+    public String GetFormLoginAdmin(Model model){
+        model.addAttribute("errorNotice", null);
+        return "admin/login";
+    }
+
+    @PostMapping("/admin")
+    public String AdminLogin(@RequestParam String email, @RequestParam String password, Model model, HttpSession session){
+        Company company = companyService.authenticate(email, password);
+        if(company!=null){
+            session.setAttribute("company", company);
+            return ("redirect:/home/admin");
+        }
+
+        model.addAttribute("errorNotice", "Wrong username or password");
+        return "admin/login";
+    }
+
     // Logout // ======================================================================================================
     @GetMapping("/logout")
     public String Logout(HttpSession session){
         session.invalidate();
         return "redirect:/home/default";
     }
-
 
 
 }

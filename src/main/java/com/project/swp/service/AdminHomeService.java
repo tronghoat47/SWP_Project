@@ -2,8 +2,10 @@ package com.project.swp.service;
 
 import com.project.swp.DTO.RevenueDTO;
 import com.project.swp.entity.Restaurant;
+import com.project.swp.entity.Revenue;
 import com.project.swp.repository.OrderRepo;
 import com.project.swp.repository.RestaurantRepo;
+import com.project.swp.repository.RevenueRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,14 @@ public class AdminHomeService {
     @Autowired
     private OrderRepo orderRepo;
 
+    @Autowired
+    private RevenueRepo revenueRepo;
+
     public List<Restaurant> getAllRestaurantByCompany(int id){
         return restaurantRepo.findByCompany_CompanyID(id);
     }
 
-    public List<RevenueDTO> getRevenueByMonth(int redId){
-        return orderRepo.getRevenueByMonthAndYearAndResId(redId);
+    public List<Revenue> getRevenueByMonth(int redId){
+        return revenueRepo.findByRestaurant_ResID(redId);
     }
 }

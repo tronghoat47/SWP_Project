@@ -23,7 +23,7 @@ public class ManagerHomeService {
 
     // Get order by restaurant //
     public List<Order> getOrderByResID(int resID){
-        return orderRepo.findByTable_TableId_Restaurant_ResID(resID);
+        return orderRepo.findByRestaurant_ResID(resID);
     }
 
     // get restaurant by staff //

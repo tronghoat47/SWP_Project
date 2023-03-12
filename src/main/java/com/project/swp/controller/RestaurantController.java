@@ -59,9 +59,11 @@ public class RestaurantController {
         Customer customer = (Customer) session.getAttribute("customer");
 
         order.setCustomer(customer);
-        order.setOrderStatus("Wait set");
+        order.setOrderStatus("Wait pay");
+
+        Restaurant restaurant = restaurantService.getDetailRes(id);
+        order.setRestaurant(restaurant);
         orderService.save(order);
-        orderService.setResID(id);
 
         return "redirect:/restaurant/customer/" + id;
     }

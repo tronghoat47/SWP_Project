@@ -5,6 +5,14 @@
     <title>Search Restaurants</title>
 </head>
 <body>
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
     <h1>Restaurants:</h1>
     <div style="border: 2px solid; margin-bottom: 20px" th:each="restaurant : ${listRestaurant}">
 

@@ -1,7 +1,9 @@
 package com.project.swp.controller;
 
 import com.project.swp.entity.Order;
+import com.project.swp.entity.Restaurant;
 import com.project.swp.entity.Staff;
+import com.project.swp.entity.Tableq;
 import com.project.swp.service.OrderService;
 import com.project.swp.service.RestaurantService;
 import com.project.swp.service.TableService;
@@ -36,22 +38,21 @@ public class OrderController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateOrder(@PathVariable("id") int id, Model model, RedirectAttributes ra){
-        try{
-            Order order = orderService.getById(id);
-            model.addAttribute("order", order);
-            model.addAttribute("resID",id);
-            return "manager/updateOrder";
-        }catch (Exception ex){
-            ra.addFlashAttribute("message","Update food successfully");
-            return "redirect:/home/manager";
-        }
+    public String updateOrder(@PathVariable("id") int id, Model model, HttpSession session){
+        Order order = orderService.getById(id);
+        model.addAttribute("order", order);
+        Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+        List<Tableq> tableqs = tableService.getTableByResId(restaurant.getResID());
+        model.addAttribute("tableqs", tableqs);
+
+        return "manager/updateOrder";
     }
 
-    @PutMapping("/update/{id}")
-    public String updateMenu(@ModelAttribute("order") Order order, HttpSession session){
+    @PostMapping("/update")
+    public String updateMenu(@ModelAttribute("order") Order order,@RequestParam("tb") List<String> tableIds, HttpSession session){
         Staff staff = (Staff) session.getAttribute("staff");
         order.setStaff(staff);
+        order.setStringTable(String.join(",", tableIds));
         if(order.getStaff() == null){
             order.setStaff(staff);
         }

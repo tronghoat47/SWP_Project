@@ -5,6 +5,16 @@
     <title>Restaurant Detail</title>
 </head>
 <body>
+
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+
     <h1>Restaurant Detail</h1>
     <h2 th:text="${detail.getResName()}"></h2>
     <p th:text="${detail.getCategoryRes()}"></p>

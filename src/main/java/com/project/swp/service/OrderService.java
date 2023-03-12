@@ -33,10 +33,11 @@ public class OrderService {
         return orderRepo.findByCustomer_CusIDOrderByOrderStatusDesc(cusID);
     }
 
-    @Transactional
-    public void setResID(int resID) {
-        orderRepo.setResID(resID, orderRepo.getOrderIdNLastest());
-    }
+//    @Transactional
+//    public void setResID(int resID) {
+//        orderRepo.setResID(resID, orderRepo.getOrderIdNLastest());
+//
+//    }
 
     // Manger // ==========================================================================================
 

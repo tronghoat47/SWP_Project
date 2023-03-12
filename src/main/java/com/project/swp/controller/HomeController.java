@@ -88,10 +88,10 @@ public class HomeController {
 
     @GetMapping("/admin")
     public String AdminHome(Model model, HttpSession session) {
-        Staff staff = (Staff) session.getAttribute("staff");
-        model.addAttribute("staff", staff);
-        
-        List<Restaurant> listRes = adminHomeService.getAllRestaurantByCompany(staff.getCompany().getCompanyID());
+        Company company = (Company) session.getAttribute("company");
+        model.addAttribute("company", company);
+
+        List<Restaurant> listRes = adminHomeService.getAllRestaurantByCompany(company.getCompanyID());
         model.addAttribute("listRes", listRes);
         return "admin/adminHome";
     }
@@ -101,11 +101,10 @@ public class HomeController {
         Restaurant restaurant = restaurantService.getDetailRes(id);
         getDetailRestaurant(model, restaurant);
 
-        Staff staff = (Staff) session.getAttribute("staff");
-        model.addAttribute("staff", staff);
+        Company company = (Company) session.getAttribute("company");
+        model.addAttribute("company", company);
 
-
-        List<RevenueDTO> listRevenue = adminHomeService.getRevenueByMonth(restaurant.getResID());
+        List<Revenue> listRevenue = adminHomeService.getRevenueByMonth(restaurant.getResID());
         model.addAttribute("listRevenue", listRevenue);
         return "admin/restaurant";
     }
