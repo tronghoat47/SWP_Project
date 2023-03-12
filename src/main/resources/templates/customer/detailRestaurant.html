@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Restaurant Detail</title>
+
 </head>
 <body>
 
-
-    <button id="back-button">Go back</button>
-
-    <script>
-        document.getElementById("back-button").addEventListener("click", function() {
-            window.history.back();
-        });
-    </script>
+    <div>
+        <a th:href="@{/home/customer}">Home</a>
+    </div>
 
     <h1>Restaurant Detail</h1>
     <h2 th:text="${detail.getResName()}"></h2>
@@ -38,29 +34,33 @@
         </tbody>
     </table>
 
-<!--    SEARCh ============================================================================ -->
-<form  th:action="@{/restaurant/customer/searchMenu}" method="post">
-    <input type="hidden" th:name="resID" th:value="${detail.getResID()}" />
+    <!--    SEARCh ============================================================================ -->
+    <form  th:action="@{/restaurant/customer/searchMenu}" method="post">
+        <input type="hidden" th:name="resID" th:value="${detail.getResID()}" />
 
-    <label for="foodName">Food Name:</label>
-    <input type="text" id="foodName" name="foodName" th:value="${foodName}" />
+        <label for="foodName">Food Name:</label>
+        <input type="text" id="foodName" name="foodName" th:value="${foodName}" />
 
-    <label for="priceFrom">Price From:</label>
-    <input type="text" id="priceFrom" name="priceFrom" th:value="${priceFrom}" />
+        <label for="priceFrom">Price From:</label>
+        <input type="text" id="priceFrom" name="priceFrom" th:value="${priceFrom}" />
 
-    <label for="priceTo">Price To:</label>
-    <input type="text" id="priceTo" name="priceTo" th:value="${priceTo}" />
+        <label for="priceTo">Price To:</label>
+        <input type="text" id="priceTo" name="priceTo" th:value="${priceTo}" />
 
-    <label for="cateMenuID">Category Menu:</label>
-    <select id="cateMenuID" name="cateMenuID" >
-        <option value="">All</option>
-        <th:block th:each="cateMenu : ${listCategoryMenu}">
-            <option th:value="${cateMenu.getCateID()}" th:text="${cateMenu.getCateName()}"></option>
-        </th:block>
-    </select>
+        <label for="cateMenuID">Category Menu:</label>
+        <select id="cateMenuID" name="cateMenuID" >
+            <option value="">All</option>
+            <th:block th:each="cateMenu : ${listCategoryMenu}">
+                <option th:value="${cateMenu.getCateID()}" th:text="${cateMenu.getCateName()}"></option>
+            </th:block>
+        </select>
 
-    <button type="submit">Search</button>
-</form>
+        <button type="submit">Search</button>
+    </form>
+
+    <div>
+        <h1></h1>
+    </div>
 <br>
 <br>
 <br>
@@ -68,7 +68,7 @@
 
     <!-- BOOK TABLE ============================================================================ -->
 
-    <form  th:action="@{/restaurant/customer/order/{id}(id=${detail.getResID()})}" method="post" th:object="${order}">
+    <form id="formBook"  th:action="@{/restaurant/customer/order/{id}(id=${detail.getResID()})}" method="post" th:object="${order}">
 
         <label for="booking-time">Choose booking time:</label>
         <input type="datetime-local" id="booking-time" name="booking-time" th:field="*{timeOrder}">
@@ -79,8 +79,15 @@
         <label for="phoneNumber">Phone Number:</label>
         <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneCustomer}">
 
-        <input type="submit" th:value="Confirm">
-    </form>
+        <span>Method payment</span>
+        <select th:field="*{methodPayment}">
+            <option selected value="Visa">Visa</option>
+            <option value="Momo">Momo</option>
+            <option value="Banking" >Banking</option>
+            <option value="Cash">Cash</option>
+        </select>
 
+        <button type="submit" id="submit-btn">Submit</button>
+    </form>
 </body>
 </html>

@@ -20,7 +20,7 @@ public class Order{
     @Column(name = "OrderID")
     private int orderId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "CusID")
     private Customer customer;
 

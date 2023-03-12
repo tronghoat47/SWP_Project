@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,14 +31,14 @@ public class RegisterController {
     }
 
     @PostMapping("/customer")
-    public String RegisterCustomer(Customer customer,Model model){
+    public String RegisterCustomer(@ModelAttribute("customer") Customer customer, Model model, HttpSession session){
         Customer temp = customerService.findByUsername(customer.getUserName());
         if(temp != null){
             model.addAttribute("error", "username already exists");
             return "customer/registercustomer";
         }
-
-        return  ("redirect:/home/customer/" + customerService.createCustomer(customer).getCusID());
+        session.setAttribute("customer", customer);
+        return  ("redirect:/home/customer");
     }
 
     // Register for company //

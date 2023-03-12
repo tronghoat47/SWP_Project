@@ -59,7 +59,7 @@ public class RestaurantController {
         Customer customer = (Customer) session.getAttribute("customer");
 
         order.setCustomer(customer);
-        order.setOrderStatus("Wait pay");
+        order.setOrderStatus("wait pay");
 
         Restaurant restaurant = restaurantService.getDetailRes(id);
         order.setRestaurant(restaurant);
