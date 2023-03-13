@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+
+    <div th:object="${order}">
+      <h1 th:text="${order.getCustomer().getCusName()}"></h1>
+      <h1 th:text="${order.getOrderStatus()}"></h1>
+      <h1 th:text="${order.getMethodPayment()}"></h1>
+      <h1 th:text="${order.getPhoneCustomer()}"></h1>
+      <h1 th:text="${order.getStaff().getEmpName()}"></h1>
+    </div>
+</body>
+</html>

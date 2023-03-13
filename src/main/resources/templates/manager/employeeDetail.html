@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff List</title>
+</head>
+<body>
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+    <h1>Staff: <span th:text="${staff.getEmpId()}"></span></h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>EmpName</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>PhoneNumber</th>
+            <th>Salary</th>
+            <th>Status</th>
+            <th>TimeWork</th>
+            <th>UserName</th>
+            <th>RoleName</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${staff.getEmpId()}"></td>
+            <td th:text="${staff.getEmpName()}"></td>
+            <td th:text="${staff.getEmail()}"></td>
+            <td th:text="${staff.getPassword()}"></td>
+            <td th:text="${staff.getPhoneNumber()}"></td>
+            <td th:text="${staff.getSalary()}"></td>
+            <td th:text="${staff.getStatus()}"></td>
+            <td th:text="${staff.getTimeWork()}"></td>
+            <td th:text="${staff.getUserName()}"></td>
+            <td th:text="${staff.getRole().getRoleName()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/staff/edit/{id}(id = ${staff.empId})}">Edit</a>
+    <a th:href="@{/staff/delete/{id}(id = ${staff.empId})}">Delete</a>
+</body>
+</html>
