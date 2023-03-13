@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Restaurants</title>
+</head>
+<body>
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+    <h1>Restaurants:</h1>
+    <div style="border: 2px solid; margin-bottom: 20px" th:each="restaurant : ${listRestaurant}">
+
+        <a th:href="@{/restaurant/customer/{id}(id=${restaurant.getResID()})}">
+            <div>
+                <h3 th:text="${restaurant.getResName()}"></h3>
+                <h3 th:text="${restaurant.getDistrict()}"></h3>
+                <h3 th:text="${restaurant.getCity()}"></h3>
+                <h3 th:text="${restaurant.getRatingPoint()}"></h3>
+            </div>
+        </a>
+
+    </div>
+</body>
+</html>

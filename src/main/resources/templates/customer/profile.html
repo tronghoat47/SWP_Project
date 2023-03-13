@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Customer</title>
+</head>
+<body>
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+
+    <h1>Update Customer</h1>
+    <form method="post" th:action="@{/customer/profile}" th:object="${customer}">
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" name="userName" th:value="${customer.getCusName()}" th:field="*{userName}"><br>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" th:value="${customer.getPassword()}" th:field="*{password}"><br>
+        <label for="cusName">Customer Name:</label>
+        <input type="text" id="cusName" name="cusName" th:value="${customer.getCusName()}" th:field="*{cusName}"><br>
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" th:value="${customer.getPhoneNumber()}"
+               th:field="*{phoneNumber}"><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:value="${customer.getEmail()}" th:field="*{email}"><br>
+        <input type="submit" value="Update">
+    </form>
+
+<!--    ORDERS ==============================================================================================-->
+    <table>
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Time Order</th>
+            <th>Number of people</th>
+            <th>Table</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${listOrder}">
+            <td th:text="${order.getOrderId()}"/>
+            <td th:text="${order.getTimeOrder()}"/>
+            <td th:text="${order.getNumberCustomer()}"/>
+            <td th:text="${order.getStringTable()}"></td>
+            <td th:text="${order.getOrderStatus()}"/>
+            <td>
+                <div th:if="${order.getOrderStatus().equals('Wait Set')}">
+                    <a th:href="@{/customer}" th:text="Delete"></a>
+                    <a th:href="@{/customer}" th:text="Edit"></a>
+                </div>
+                <div th:if="${order.getOrderStatus().equals('Wait Pay')}">
+                    <a th:href="@{/customer}" th:text="View"></a>
+                    <a th:href="@{/customer}" th:text="Pay"></a>
+                </div>
+                <div th:if="${order.getOrderStatus().equals('Complete')}">
+                    <a th:href="@{/customer}" th:text="View"></a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

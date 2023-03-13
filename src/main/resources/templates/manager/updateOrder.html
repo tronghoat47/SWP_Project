@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Order</title>
+</head>
+
+<body>
+
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+
+    <form method="post" th:action="@{/order/update}" th:object="${order}">
+
+        <input type="text" readonly th:field="*{orderId}" th:value="${order.orderId}"/>
+
+        <span>Method payment</span>
+        <select th:field="*{methodPayment}">
+            <option selected th:text="${order.methodPayment}" value="apple"></option>
+            <option value="Momo">Momo</option>
+            <option value="Banking" >Banking</option>
+            <option value="Cash">Cash</option>
+        </select>
+        <br>
+
+        <span>Time of Order</span>
+        <input type="datetime-local" th:field="*{timeOrder}" th:value="${order.timeOrder}"/>
+        <br>
+
+        <span>Total</span>
+        <input readonly type="text" th:field="*{total}"/>
+        <br>
+
+        <span>Employee</span>
+        <input type="text" th:if="${order.staff != null}" th:value="${order.staff.empId}" readonly/>
+        <br>
+
+        <span>Table</span>
+<!--        <select name="">-->
+<!--            <option th:each="tb : ${tableqs}" th:attr="data-table='${#strings.escapeJson(#json.toJson(tb))}'" th:text="${tb.getTableId().getTableId()}"></option>-->
+<!--        </select>-->
+
+        <div>
+            <input th:each="tb : ${tableqs}" type="checkbox" name="tb", th:value="${tb.getTableId().getTableId()}" th:text="${tb.getTableId().getTableId()}">
+        </div>
+
+        <span>Pay</span>
+        <input type="radio" name="pay" th:field="*{orderStatus}" value="wait pay">Wait pay
+        <input type="radio" name="pay" th:field="*{orderStatus}" value="done">Done
+
+        <input type="submit" value="Save">
+    </form>
+
+</body>
+
+</html>
