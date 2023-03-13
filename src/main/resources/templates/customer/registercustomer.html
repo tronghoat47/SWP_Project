@@ -2,17 +2,98 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign up</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <script src="https://kit.fontawesome.com/2b070e02a1.js" crossorigin="anonymous"></script>
 </head>
-    <body>
+<body>
+<div class="container" style="background-image: url('http://drive.google.com/uc?export=view&id=1OAHx8j-8IjfF_U11HfTKX6n2Y-zT_SSH');">
+    <div class="login-box">
         <h2 th:text="${error}"></h2>
-      <form th:action="@{/register/customer}" method="post" th:object="${customer}">
-        <label>Username: </label><input type="text" th:value="${customer.getUserName()}" th:field="*{userName}" name=""><br>
-        <label>Password: </label><input type="password" th:value="${customer.getPassword()}" th:field="*{password}" name=""><br>
-        <label>Name: </label><input type="text" th:value="${customer.getCusName()}" th:field="*{cusName}" name=""><br>
-        <label>Email: </label><input type="text" th:value="${customer.getEmail()}" th:field="*{email}" name=""><br>
-        <label>Phone: </label><input type="text" th:value="${customer.getPhoneNumber()}" th:field="*{phoneNumber}" name=""><br>
-        <input type="submit" value="Register">
-      </form>
-    </body>
+
+        <form class="login" th:action="@{/register/customer}" method="post" th:object="${customer}" onsubmit ="return validateForm()">
+            <div class="form-group">
+                <input type="text" placeholder="Name" id="name" class="form-control"
+                       th:value="${customer.getCusName()}" th:field="*{cusName}" name="">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Username" id="username" class="form-control"
+                       th:value="${customer.getUserName()}" th:field="*{userName}" name="">
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Password" id="password" class="form-control"
+                       th:value="${customer.getCusName()}" th:field="*{cusName}" name="">
+                <span id = "message1" style="color:red"> </span>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Confirm" id="confirm" class="form-control">
+                <span id = "message2" style="color:red"> </span>
+            </div>
+            <div class="form-group">
+                <input type="number" placeholder="Phone" id="phone" class="form-control"
+                       th:value="${customer.getPhoneNumber()}" th:field="*{phoneNumber}" name="">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Mail" id="mail" class="form-control"
+                       th:value="${customer.getEmail()}" th:field="*{email}" name="">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="full-btn">Sign Up</button>
+            </div>
+        </form>
+
+        <div class="serparater">
+            Or sign up via social links
+        </div>
+
+        <div class="social-login">
+            <a href="facebook">
+                <i class="fab fa-facebook-square"></i>
+                Facebook
+            </a>
+
+            <a href="google">
+                <i class="fab fa-google"></i>
+                Google
+            </a>
+        </div>
+
+        <div class="homepage">
+            <a href="login.html">
+                <i class="fas fa-chevron-left"></i>
+                Back to login
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function validateForm() {
+        //collect form data in JavaScript variables
+        var pw1 = document.getElementById("password").value;
+        var pw2 = document.getElementById("confirm").value;
+
+
+        //check empty password field
+        if(pw1 == "") {
+            document.getElementById("message1").innerHTML = "**Vui lòng nhập mật khẩu!";
+            return false;
+        }
+
+        //check empty confirm password field
+        if(pw2 == "") {
+            document.getElementById("message2").innerHTML = "**Vui lòng nhập mật khẩu!";
+            return false;
+        }
+
+        if(pw1 != pw2) {
+            document.getElementById("message2").innerHTML = "**Mật khẩu bạn nhập không khớp";
+            return false;
+        }
+    }
+</script>
+
+</body>
 </html>
