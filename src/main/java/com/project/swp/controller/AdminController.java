@@ -1,0 +1,90 @@
+package com.project.swp.controller;
+
+import com.project.swp.entity.Company;
+import com.project.swp.entity.Restaurant;
+import com.project.swp.entity.Role;
+import com.project.swp.entity.Staff;
+import com.project.swp.service.RestaurantService;
+import com.project.swp.service.RoleService;
+import com.project.swp.service.StaffService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private StaffService staffService;
+
+    // ***************************************************************************************************
+    // ******************                  NEW BRANCH                   **********************************
+    // ***************************************************************************************************
+
+    @GetMapping("/addbranch")
+    public String showFormAddBranch(Model model){
+
+        Restaurant restaurant = new Restaurant();
+        model.addAttribute("restaurant", restaurant);
+
+        return "admin/addBranch";
+    }
+
+    @PostMapping("/addbranch")
+    public String addBranch(@ModelAttribute("restaurant") Restaurant restaurant, HttpSession session){
+        Company company = (Company) session.getAttribute("company");
+        restaurant.setCompany(company);
+        restaurantService.saveRestaurant(restaurant);
+        return "redirect:/home/admin";
+    }
+
+
+    // ***************************************************************************************************
+    // ******************                  NEW STAFF                    **********************************
+    // ***************************************************************************************************
+
+    @GetMapping("/addstaff/{id}")
+    public String showFormAddStaff(@PathVariable("id") int id, Model model){
+        Staff staff = new Staff();
+        Restaurant restaurant = restaurantService.getDetailRes(id);
+        model.addAttribute("staff", staff);
+        model.addAttribute("error", "An error is occurred");
+        model.addAttribute("restaurant", restaurant);
+
+        List<Role> roleList = roleService.getRolesByRestaurant(id);
+        model.addAttribute("roleList", roleList);
+        return "admin/addStaff";
+    }
+
+    @PostMapping("/addstaff/{id}")
+    public String addStaff(@PathVariable("id") int id, Model model, @RequestParam("roleId") int roleId, @ModelAttribute("staff") Staff staff, HttpSession session){
+        staff.setStatus("on");
+        String time = String.valueOf(LocalDateTime.now());
+        staff.setTimeWork(time);
+        staff.setUserName(staff.getEmail());
+        Company company =(Company) session.getAttribute("company");
+        staff.setCompany(company);
+        Role role = roleService.getRoleByRestaurantAndRoleID(id, roleId);
+        if(role == null){
+
+        }
+        staff.setRole(role);
+        roleService.saveRole(role);
+        staffService.saveStaff(staff);
+        return "redirect:/home/admin/restaurant/" + id;
+    }
+
+}

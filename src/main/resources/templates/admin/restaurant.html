@@ -29,6 +29,9 @@
 
     <!-- LIST EMPLOYEE -->
     <h1>List Employee</h1>
+    <div>
+        <a th:href="@{/admin/addstaff/{id}(id=${restaurant.getResID()})}">Add employee</a>
+    </div>
     <div style="border: 2px solid; margin-bottom: 20px">
         <div th:each="employee : ${listEmployee}">
             <a th:href="@{/home/manager/em/{id}(id=${employee.getEmpId()})}">
@@ -41,11 +44,8 @@
     </div>
 
     <!-- LIST ORDER -->
-
     <div style="border: 2px solid; margin-bottom: 20px">
-        <div>
-            <a th:href="@{/order/new/{id}(id=${restaurant.getResID()})}">Add order</a>
-        </div>
+
         <h1>List order</h1>
         <div th:each="order : ${listOrder}">
             <a th:href="@{/order/{id}(id=${order.getOrderId()})}">

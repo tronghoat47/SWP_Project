@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Hot Restaurants:</h1>
+    <h1>Restaurants:</h1>
     <div style="border: 2px solid; margin-bottom: 20px" th:each="restaurant : ${listRes}">
 
         <a th:href="@{/home/admin/restaurant/{id}(id=${restaurant.getResID()})}">
@@ -17,6 +17,12 @@
             </div>
         </a>
 
+    </div>
+
+    <div>
+        <a th:href="@{/admin/addbranch}">
+            add new branch
+        </a>
     </div>
 </body>
 </html>

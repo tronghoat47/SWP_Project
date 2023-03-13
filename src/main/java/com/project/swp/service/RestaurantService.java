@@ -42,4 +42,10 @@ public class RestaurantService {
             return restaurantRepo.findRestaurantsByCityContainingIgnoreCaseAndAndResNameContainingIgnoreCaseAndCategoryResContainsIgnoreCase(city, restaurantName, category);
     }
 
+    // ADMIN // ===============================================================
+
+    public Restaurant saveRestaurant(Restaurant restaurant){
+        return restaurantRepo.save(restaurant);
+    }
+
 }
