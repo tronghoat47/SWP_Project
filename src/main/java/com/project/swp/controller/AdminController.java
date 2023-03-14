@@ -121,6 +121,7 @@ public class AdminController {
         }
 
         model.addAttribute("listTableCompany", listTableCompany);
+        model.addAttribute("listRes", listRes);
         return "admin/manageTable";
     }
 

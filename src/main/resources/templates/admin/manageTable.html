@@ -6,7 +6,15 @@
 </head>
 <body>
 
-      
+    <div th:each="listTb: ${listTableCompany}">
+        <h1 th:text="listTb"></h1>
+        <div th:each="tb : ${listTb}">
+            <h1 th:text="${tb.tableId.tableId}"></h1>
+            <select>
+                <option th:each="res: ${listRes}" th:text="${res.resName}"></option>
+            </select>
+        </div>
+    </div>
 
 </body>
 </html>
