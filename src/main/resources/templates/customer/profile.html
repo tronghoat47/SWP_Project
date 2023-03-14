@@ -1,71 +1,322 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Update Customer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Profile</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!----css3---->
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+
+    <style>
+        .serparater {
+            width: 100%;
+            border-top: 1px solid #28a745;
+            border-bottom: 1px solid #28a745;
+            padding: 10px 0;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 13px;
+
+        }
+    </style>
+    <!--google material icon-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
 </head>
+
 <body>
 
     <button id="back-button">Go back</button>
-
     <script>
         document.getElementById("back-button").addEventListener("click", function() {
             window.history.back();
         });
     </script>
 
-    <h1>Update Customer</h1>
-    <form method="post" th:action="@{/customer/profile}" th:object="${customer}">
-        <input type="hidden" th:field="*{cusID}">
-        <label for="userName">Username:</label>
-        <input type="text" id="userName" name="userName" th:value="${customer.getCusName()}" th:field="*{userName}"><br>
-        <label for="password">Password:</label>
-        <input type="text" id="password" name="password" th:value="${customer.getPassword()}" th:field="*{password}"><br>
-        <label for="cusName">Customer Name:</label>
-        <input type="text" id="cusName" name="cusName" th:value="${customer.getCusName()}" th:field="*{cusName}"><br>
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" th:value="${customer.getPhoneNumber()}"
-               th:field="*{phoneNumber}"><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:value="${customer.getEmail()}" th:field="*{email}"><br>
-        <input type="submit" value="Update">
-    </form>
+<div class="wrapper">
 
-<!--    ORDERS ==============================================================================================-->
-    <table>
-        <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Time Order</th>
-            <th>Number of people</th>
-            <th>Table</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order : ${listOrder}">
-            <td th:text="${order.getOrderId()}"/>
-            <td th:text="${order.getTimeOrder()}"/>
-            <td th:text="${order.getNumberCustomer()}"/>
-            <td th:text="${order.getStringTable()}"></td>
-            <td th:text="${order.getOrderStatus()}"/>
-            <td>
-                <div th:if="${order.getOrderStatus().equals('Wait Set')}">
-                    <a th:href="@{/customer}" th:text="Delete"></a>
-                    <a th:href="@{/customer}" th:text="Edit"></a>
+
+    <div class="body-overlay"></div>
+
+    <!-------------------------sidebar------------>
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+
+        <!-- Ten va anh dai dien -->
+        <div class="sidebar-header">
+            <a href=""><img src="images/icons/page-logo.png" style="height: 100px; width: 100px;" class="img-fluid" /></a>
+        </div>
+
+
+        <ul class="list-unstyled components">
+
+            <li class="active">
+                <a href="#" class="dashboard"><i class="material-icons">dashboard</i>
+                    <span>Dashboard</span></a>
+            </li>
+            <li>
+                <a href="#" class="dashboard"><i class="material-icons">history</i>
+                    <span>Oder History</span></a>
+            </li>
+        </ul>
+    </nav>
+
+
+
+
+    <!--------page-content---------------->
+
+    <div id="content">
+
+        <!--top--navbar----design--------->
+
+        <div class="top-navbar">
+            <div class="xp-topbar">
+
+                <!-- Start XP Row -->
+                <div class="row">
+                    <!-- Start XP Col -->
+                    <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                        <div class="xp-menubar">
+                <span class="material-icons text-white">signal_cellular_alt
+                </span>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+
+                    <!-- Start XP Col -->
+                    <div class="col-md-5 col-lg-3 order-3 order-md-2">
+                        <div class="xp-searchbar">
+                            <form>
+                                <div class="input-group">
+                                    <input type="search" class="form-control" placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn" type="submit" id="button-addon2">GO</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+
+                    <!-- Start XP Col -->
+                    <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+                        <div class="xp-profilebar text-right">
+                            <nav class="navbar p-0">
+                                <ul class="nav navbar-nav flex-row ml-auto">
+
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" data-toggle="dropdown">
+                                            <img src="img/user.jpg" style="width:40px; border-radius:50%;" />
+                                            <span class="xp-user-live"></span>
+                                        </a>
+                                        <ul class="dropdown-menu small-menu">
+                                            <li>
+                                                <a href="#">
+                            <span class="material-icons">
+                              person_outline
+                            </span>Profile
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#"><span class="material-icons">
+                              history</span>Order History</a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#"><span class="material-icons">
+                              logout</span>Logout</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
                 </div>
-                <div th:if="${order.getOrderStatus().equals('Wait Pay')}">
-                    <a th:href="@{/customer}" th:text="View"></a>
-                    <a th:href="@{/customer}" th:text="Pay"></a>
+                <!-- End XP Row -->
+            </div>
+        </div>
+
+
+
+        <!--------main-content------------->
+
+        <div class="main-content">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="table-wrapper">
+                        <form method="post" th:action="@{/customer/profile}" th:object="${customer}">
+                            <div class="serparater">
+                                <h4 class="modal-title">User profile</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="userName" name="userName" th:value="${customer.getCusName()}" th:field="*{userName}">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="cusName" name="cusName" th:value="${customer.getCusName()}" th:field="*{cusName}">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="password" name="password" th:value="${customer.getPassword()}" th:field="*{password}">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" th:value="${customer.getPhoneNumber()}" th:field="*{phoneNumber}">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="email" id="email" name="email" th:value="${customer.getEmail()}" th:field="*{email}">
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-success" value="Update">
+                            </div>
+
+                        </form>
+
+
+                    </div>
                 </div>
-                <div th:if="${order.getOrderStatus().equals('Complete')}">
-                    <a th:href="@{/customer}" th:text="View"></a>
+            </div>
+
+            <div class="serparater">
+                <h4>Order History</h4>
+            </div>
+            <!-- ------------------------- -->
+            <div class="main-content">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+                                        <!-- <h2 class="ml-lg-2">Order History</h2> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Time Order</th>
+                                    <th>Number of people</th>
+                                    <th>Table</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${listOrder}">
+                                    <td th:text="${order.getOrderId()}" />
+                                    <td th:text="${order.getTimeOrder()}" />
+                                    <td th:text="${order.getNumberCustomer()}" />
+                                    <td th:if="${order.getTable() != null}" th:text="${order.getTable().getTableId().getTableId()}" />
+                                    <td th:if="${order.getTable() == null}" th:text='NULL' />
+                                    <td th:text="${order.getOrderStatus()}" />
+                                    <td>
+                                        <div th:if="${order.getOrderStatus().equals('Wait Set')}">
+                                            <a th:href="@{/customer}" th:text="Delete"></a>
+                                            <a th:href="@{/customer}" th:text="Edit"></a>
+                                        </div>
+                                        <div th:if="${order.getOrderStatus().equals('Wait Pay')}">
+                                            <a th:href="@{/customer}" th:text="View"></a>
+                                            <a th:href="@{/customer}" th:text="Pay"></a>
+                                        </div>
+                                        <div th:if="${order.getOrderStatus().equals('Complete')}">
+                                            <a th:href="@{/customer}" th:text="View"></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Phân trang -->
+                            <!-- <div class="clearfix">
+                              <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                              <ul class="pagination">
+                                <li class="page-item disabled"><a href="#">Previous</a></li>
+                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                              </ul>
+                            </div> -->
+
+
+                        </div>
+                    </div>
+
+
+
                 </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+
+
+                <!---footer---->
+
+
+            </div>
+            <!---footer---->
+
+
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="footer-in">
+                    <p class="mb-0">&copy 2023 - All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+
+
+<script th:type="text/javascript">
+
+    $(document).ready(function () {
+        $(".xp-menubar").on('click', function () {
+            $('#sidebar').toggleClass('active');
+            $('#content').toggleClass('active');
+        });
+
+        $(".xp-menubar,.body-overlay").on('click', function () {
+            $('#sidebar,.body-overlay').toggleClass('show-nav');
+        });
+
+    });
+
+</script>
+
+
 
 </body>
+
 </html>
