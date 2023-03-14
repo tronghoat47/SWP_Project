@@ -67,7 +67,7 @@ public class LoginController {
             session.setAttribute("staff", staff);
             Restaurant restaurant = restaurantService.getDetailRes(staff.getRole().getRoleId().getRestaurant().getResID());
             session.setAttribute("restaurant", restaurant);
-            if(staff.getRole().getRoleName().equals("manager")){
+            if(staff.getRole().getRoleName().equalsIgnoreCase("manager")){
                 return ("redirect:/home/manager");
             }else {
                 return ("redirect:/home/employee");
