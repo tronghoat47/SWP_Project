@@ -35,6 +35,7 @@ public class RestaurantService {
     public List<String> getCategoryRes() {
         return restaurantRepo.findCategoryRest();
     }
+
     public List<Restaurant> searchRestaurant(Company company, String city, String restaurantName, String category) {
         if(company != null)
             return restaurantRepo.findRestaurantsByCompanyAndCityContainingIgnoreCaseAndAndResNameContainingIgnoreCaseAndCategoryResContainsIgnoreCase(company, city, restaurantName, category);
@@ -47,5 +48,7 @@ public class RestaurantService {
     public Restaurant saveRestaurant(Restaurant restaurant){
         return restaurantRepo.save(restaurant);
     }
+
+
 
 }

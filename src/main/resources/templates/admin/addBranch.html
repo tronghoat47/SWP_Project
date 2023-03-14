@@ -46,6 +46,8 @@
             <option value="" selected>Chọn phường xã</option>
         </select><br>
 
+        <span>Số nhà</span>
+        <input type="text" th:value="${restaurant.getMap()  }" th:field="*{map}">
         <input type="submit" value="Add">
     </form>
 

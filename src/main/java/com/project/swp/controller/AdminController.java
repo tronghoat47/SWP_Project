@@ -1,9 +1,8 @@
 package com.project.swp.controller;
 
 import com.project.swp.entity.*;
-import com.project.swp.service.RestaurantService;
-import com.project.swp.service.RoleService;
-import com.project.swp.service.StaffService;
+import com.project.swp.service.*;
+import jakarta.persistence.Table;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,6 +26,12 @@ public class AdminController {
 
     @Autowired
     private StaffService staffService;
+
+    @Autowired
+    private AdminHomeService adminHomeService;
+
+    @Autowired
+    private TableService tableService;
 
     // ***************************************************************************************************
     // ******************                  NEW BRANCH                   **********************************
@@ -99,6 +105,23 @@ public class AdminController {
         roleService.saveRole(newRole);
         staffService.saveStaff(staff);
         return "redirect:/home/admin/restaurant/" + id;
+    }
+
+    @GetMapping("/table")
+    public String showAllTable(Model model, HttpSession session){
+
+        Company company = (Company) session.getAttribute("company");
+        List<Restaurant> listRes = adminHomeService.getAllRestaurantByCompany(company.getCompanyID());
+
+        List<List<Tableq>> listTableCompany = new ArrayList<>();
+
+        for (Restaurant restaurant :  listRes) {
+            List<Tableq> listTable = tableService.getTableByResId(restaurant.getResID());
+            listTableCompany.add(listTable);
+        }
+
+        model.addAttribute("listTableCompany", listTableCompany);
+        return "admin/manageTable";
     }
 
 }
