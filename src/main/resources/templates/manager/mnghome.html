@@ -47,8 +47,8 @@
                 <h3 th:text="${order.getTimeOrder()}"></h3>
             </div>
         </a>
-        <a th:href="@{/order/edit/{id}(id = ${order.orderId})}">Edit</a>
-        <a th:href="@{/order/delete/{id}(id = ${order.orderId})}">Delete</a>
+        <a th:method="GET" th:href="@{/order/update/{id}(id = ${order.orderId})}">Edit</a>
+        <a th:method="POST" th:href="@{/order/delete/{id}(id = ${order.orderId})}">Delete</a>
     </div>
 
     <!-- LIST RATE -->

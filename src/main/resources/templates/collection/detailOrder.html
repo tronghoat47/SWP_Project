@@ -6,6 +6,15 @@
 </head>
 <body>
 
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+
     <div th:object="${order}">
         <h1 th:text="${order.getCustomer().getCusName()}"></h1>
         <h1 th:text="${order.getOrderStatus()}"></h1>

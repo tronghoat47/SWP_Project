@@ -33,8 +33,9 @@ public class CustomerController {
     }
 
     @PostMapping("/profile")
-    public String editProfileCustomer(Customer customer) {
+    public String editProfileCustomer(@ModelAttribute("customer") Customer customer, HttpSession session) {
         customerService.customerUpdateAndAdd(customer);
+        session.setAttribute("customer", customer);
         return "redirect:/customer/profile";
     }
 }

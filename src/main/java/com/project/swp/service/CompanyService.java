@@ -1,6 +1,8 @@
 package com.project.swp.service;
 
 import com.project.swp.entity.Company;
+import com.project.swp.entity.Restaurant;
+import com.project.swp.entity.Staff;
 import com.project.swp.repository.CompanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,4 +19,12 @@ public class CompanyService {
     public Company findCompanyByName(int companyId) {
         return companyRepo.findCompanyByCompanyID(companyId).orElse(null);
     }
+
+    // Authenticate admin // ======
+
+    public Company authenticate(String email, String password){
+        Company company = companyRepo.findFirstByEmailAndPassword(email, password);
+        return company != null  ? company : null;
+    }
+
 }

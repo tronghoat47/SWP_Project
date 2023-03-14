@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <button id="back-button">Go back</button>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function() {
+            window.history.back();
+        });
+    </script>
+
+    <div style="border: 2px solid; margin-bottom: 20px" >
+        <h1 th:object="${company}">
+            <span>Manager(this account) </span>
+            <span th:text="${company.getCompanyName()}"></span>
+        </h1>
+    </div>
+
+    <div style="border: 2px solid; margin-bottom: 20px" th:object="${restaurant}">
+        <h1>Restaurant</h1>
+        <h3 th:text="${restaurant.getResName()+ ' in ' + restaurant.getCity()}"></h3>
+    </div>
+
+    <!-- LIST EMPLOYEE -->
+    <h1>List Employee</h1>
+    <div>
+        <a th:href="@{/admin/addstaff/{id}(id=${restaurant.getResID()})}">Add employee</a>
+    </div>
+    <div style="border: 2px solid; margin-bottom: 20px">
+        <div th:each="employee : ${listEmployee}">
+            <a th:href="@{/home/manager/em/{id}(id=${employee.getEmpId()})}">
+                <div>
+                    <h3 th:text="${employee.getEmpName()}"></h3>
+                    <h3 th:text="${employee.getEmail()}"></h3>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- LIST ORDER -->
+    <div style="border: 2px solid; margin-bottom: 20px">
+
+        <h1>List order</h1>
+        <div th:each="order : ${listOrder}">
+            <a th:href="@{/order/{id}(id=${order.getOrderId()})}">
+                <div>
+                    <h3 th:text="${order.getCustomer().getCusName()}"></h3>
+                    <h3 th:text="${order.getOrderId()}"></h3>
+                    <h3 th:text="${order.getOrderStatus()}"></h3>
+                    <h3 th:text="${order.getTimeOrder()}"></h3>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- LIST RATE -->
+    <div style="border: 2px solid; margin-bottom: 20px">
+        <h1>List rate (comment)</h1>
+        <div th:each="rate : ${listRate}">
+            <h3 th:text="${rate.getRateId().getCustomer().getCusName()}"></h3>
+            <h3 th:text="${rate.getComment()}"></h3>
+            <h3 th:text="${rate.getRating()}"></h3>
+        </div>
+    </div>
+
+    <!-- LIST MENU -->
+    <div style="border: 2px solid; margin-bottom: 20px">
+        <h1>List food(menu)</h1>
+        <div th:each="menu : ${listMenu}">
+            <h3 th:text="${menu.getCategoryMenu().getCateName()}"></h3>
+            <h3 th:text="${menu.getDescriptionFood()}"></h3>
+            <h3 th:text="${menu.getPrice()}"></h3>
+        </div>
+    </div>
+
+    <!-- REVENUE -->
+    <div style="border: 2px solid; margin-bottom: 20px">
+        <h1>Revenue</h1>
+        <div th:each="revenue : ${listRevenue}">
+            <h3 th:text="${revenue.getMonth()}"></h3>
+            <h3 th:text="${revenue.getYear()}"></h3>
+            <h3 th:text="${revenue.getRevenue()}"></h3>
+        </div>
+    </div>
+
+</body>
+</html>

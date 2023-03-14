@@ -52,4 +52,8 @@ public class Staff {
     })
     private Role role;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CompanyID")
+    private Company company;
+
 }

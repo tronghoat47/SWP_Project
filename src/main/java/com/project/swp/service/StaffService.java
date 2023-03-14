@@ -26,8 +26,8 @@ public class StaffService {
     private RoleRepo roleRepo;
 
     // authenticate // =============================================================================
-    public Staff authenticate(String username, String password, String roleName){
-        Staff staff = staffRepo.findByUserNameAndPasswordAndRole_RoleName(username, password, roleName);
+    public Staff authenticate(String username, String password){
+        Staff staff = staffRepo.findFirstByUserNameAndPassword(username, password);
         return staff != null  ? staff : null;
     }
 

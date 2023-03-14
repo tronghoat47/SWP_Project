@@ -5,6 +5,8 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -18,7 +20,7 @@ public class Order{
     @Column(name = "OrderID")
     private int orderId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "CusID")
     private Customer customer;
 
@@ -26,22 +28,22 @@ public class Order{
     @JoinColumn(name = "EmpID")
     private Staff staff;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ResID")
-//    private Tableq tableq;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumns({
+//            @JoinColumn(name = "TableqId", referencedColumnName="TableqId"),
+//            @JoinColumn(name = "ResID", referencedColumnName="ResID")
+//    })
+//    private Tableq table;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumns({
-            @JoinColumn(name = "TableqId", referencedColumnName="TableqId"),
-            @JoinColumn(name = "ResID", referencedColumnName="ResID")
-    })
-    private Tableq table;
+    @JoinColumn(name = "ResID")
+    private Restaurant restaurant;
 
-    @Column(name = "TimeOrder")
-    private String timeOrder;
+    @Column(name = "TimeOrder", columnDefinition = "DATETIME")
+    private LocalDateTime timeOrder;
 
-    @Column(name = "TimeCancel")
-    private String timeCancel;
+    @Column(name = "TimeCancel", columnDefinition = "DATETIME")
+    private LocalDateTime timeCancel;
 
     @Column(name = "MethodPayment")
     private String methodPayment;
@@ -57,6 +59,9 @@ public class Order{
 
     @Column(name = "Total")
     private Double total;
+
+    @Column(name = "StringTable")
+    private String stringTable;
 
 }
 

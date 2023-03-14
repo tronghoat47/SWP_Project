@@ -1,8 +1,12 @@
 package com.project.swp.controller;
 
 import com.project.swp.entity.Order;
+import com.project.swp.entity.Restaurant;
 import com.project.swp.entity.Staff;
+import com.project.swp.entity.Tableq;
 import com.project.swp.service.OrderService;
+import com.project.swp.service.RestaurantService;
+import com.project.swp.service.TableService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -19,6 +24,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private TableService tableService;
+
     @GetMapping("/{id}")
     public String getOrderDetail(@PathVariable int id, Model model){
         Order order =  orderService.getOrderById(id);
@@ -26,38 +37,26 @@ public class OrderController {
         return "collection/detailOrder";
     }
 
-    @GetMapping("/edit/{id}")
-    public String updateOrder(@PathVariable("id") int id, Model model, RedirectAttributes ra){
-        try{
-            Order order = orderService.getById(id);
-            model.addAttribute("order", order);
-            model.addAttribute("resID",id);
-            return "manager/updateOrder";
-        }catch (Exception ex){
-            ra.addFlashAttribute("message","Update food successfully");
-            return "redirect:/home/manager";
-        }
+    @GetMapping("/update/{id}")
+    public String updateOrder(@PathVariable("id") int id, Model model, HttpSession session){
+        Order order = orderService.getById(id);
+        model.addAttribute("order", order);
+        Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+        List<Tableq> tableqs = tableService.getTableByResId(restaurant.getResID());
+        model.addAttribute("tableqs", tableqs);
+
+        return "manager/updateOrder";
     }
 
-
-    @PostMapping("/update/{id}")
-    public String updateMenu(@PathVariable int id,
-                             @RequestParam(value = "orderID") int orderID,
-                             @RequestParam(value = "methodPayment") String methodPayment,
-                             @RequestParam(value = "timeCancel") String timeCancle,
-                             @RequestParam(value = "timeOrder")String timeOrder,
-                             @RequestParam(value = "total") double total,
-//                             @RequestParam(value = "tableID") String tableID,
-                             @RequestParam(value = "employeeID") int employeeID,
-                             HttpSession session){
-        Order orderCheck = orderService.getById(orderID);
-        Staff staff = (Staff) session.getAttribute("manager");
-        orderCheck.setMethodPayment(methodPayment);
-        orderCheck.setTimeOrder(timeOrder);
-        orderCheck.setTimeCancel(timeCancle);
-        orderCheck.setTotal(total);
-        orderCheck.setStaff(staff);
-        orderService.save(orderCheck);
+    @PostMapping("/update")
+    public String updateMenu(@ModelAttribute("order") Order order,@RequestParam("tb") List<String> tableIds, HttpSession session){
+        Staff staff = (Staff) session.getAttribute("staff");
+        order.setStaff(staff);
+        order.setStringTable(String.join(",", tableIds));
+        if(order.getStaff() == null){
+            order.setStaff(staff);
+        }
+        orderService.save(order);
         return "redirect:/home/manager";
     }
 
