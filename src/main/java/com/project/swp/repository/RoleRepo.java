@@ -11,5 +11,5 @@ public interface RoleRepo extends JpaRepository<Role, RoleID> {
 
     List<Role> findByRoleId_Restaurant_ResID(int redId);
 
-    Role findFirstByRoleId_RoleIdAndRoleId_Restaurant_ResID(int roleId, int resId);
+    Role findFirstByRoleId_RoleIdAndRoleId_Restaurant_ResID(long roleId, int resId);
 }

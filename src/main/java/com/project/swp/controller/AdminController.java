@@ -1,9 +1,6 @@
 package com.project.swp.controller;
 
-import com.project.swp.entity.Company;
-import com.project.swp.entity.Restaurant;
-import com.project.swp.entity.Role;
-import com.project.swp.entity.Staff;
+import com.project.swp.entity.*;
 import com.project.swp.service.RestaurantService;
 import com.project.swp.service.RoleService;
 import com.project.swp.service.StaffService;
@@ -63,26 +60,43 @@ public class AdminController {
         model.addAttribute("staff", staff);
         model.addAttribute("error", "An error is occurred");
         model.addAttribute("restaurant", restaurant);
-
+        Role newRole = new Role();
         List<Role> roleList = roleService.getRolesByRestaurant(id);
         model.addAttribute("roleList", roleList);
+        model.addAttribute("newRole", newRole);
         return "admin/addStaff";
     }
 
     @PostMapping("/addstaff/{id}")
-    public String addStaff(@PathVariable("id") int id, Model model, @RequestParam("roleId") int roleId, @ModelAttribute("staff") Staff staff, HttpSession session){
+    public String addStaff(@PathVariable("id") int id, Model model,
+                           @RequestParam("roleIdd") String roleIdd,
+                           @RequestParam("newRoleId") long newRoleId,
+                           @ModelAttribute("staff") Staff staff,
+                           @ModelAttribute("newRole") Role newRole,
+                           HttpSession session){
         staff.setStatus("on");
         String time = String.valueOf(LocalDateTime.now());
         staff.setTimeWork(time);
         staff.setUserName(staff.getEmail());
         Company company =(Company) session.getAttribute("company");
+        Restaurant restaurant = restaurantService.getDetailRes(id);
+
+        long roleId = Long.parseLong(roleIdd);
         staff.setCompany(company);
         Role role = roleService.getRoleByRestaurantAndRoleID(id, roleId);
-        if(role == null){
-
+        if(role != null){
+            staff.setRole(role);
+            roleService.saveRole(role);
+            staffService.saveStaff(staff);
+            return "redirect:/home/admin/restaurant/" + id;
         }
-        staff.setRole(role);
-        roleService.saveRole(role);
+
+        RoleID roleID = new RoleID();
+        roleID.setRoleId(newRoleId);
+        roleID.setRestaurant(restaurant);
+        newRole.setRoleId(roleID);
+        staff.setRole(newRole);
+        roleService.saveRole(newRole);
         staffService.saveStaff(staff);
         return "redirect:/home/admin/restaurant/" + id;
     }

@@ -16,6 +16,7 @@
 
     <h1>Update Customer</h1>
     <form method="post" th:action="@{/customer/profile}" th:object="${customer}">
+        <input type="hidden" th:field="*{cusID}">
         <label for="userName">Username:</label>
         <input type="text" id="userName" name="userName" th:value="${customer.getCusName()}" th:field="*{userName}"><br>
         <label for="password">Password:</label>

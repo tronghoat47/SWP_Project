@@ -17,7 +17,7 @@ public class RoleService {
         return roleRepo.findByRoleId_Restaurant_ResID(resId);
     }
 
-    public Role getRoleByRestaurantAndRoleID(int resId, int roleId){
+    public Role getRoleByRestaurantAndRoleID(int resId, long roleId){
         return roleRepo.findFirstByRoleId_RoleIdAndRoleId_Restaurant_ResID(roleId, resId);
     }
 
