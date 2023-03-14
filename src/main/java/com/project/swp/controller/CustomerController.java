@@ -22,8 +22,6 @@ public class CustomerController {
 
     @GetMapping("/profile")
     public String profileCustomer(Model model, HttpSession session) {
-//        Customer customer = customerService.findByCusID(id);
-//        model.addAttribute("customer", customer);
 
         Customer customer = (Customer) session.getAttribute("customer");
         model.addAttribute("customer", customer);

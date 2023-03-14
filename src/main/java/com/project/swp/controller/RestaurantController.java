@@ -37,6 +37,20 @@ public class RestaurantController {
         return "customer/detailRestaurant";
     }
 
+    @GetMapping("customer/searchMenu/{resId}/{cateId}")
+    public String listMenuByCateID(@PathVariable("resId") int resId, @PathVariable("cateId") int cateId, Model model) {
+        Restaurant restaurant = restaurantService.getDetailRes(resId);
+        model.addAttribute("detail", restaurant);
+        List<CategoryMenu> categoryMenus = categoryMenuService.getListCategory();
+        model.addAttribute("listCategoryMenu", categoryMenus);
+        CategoryMenu categoryMenu = categoryMenuService.getCategoryMenuByCateID(cateId);
+        List<Menu> listMenuDetailRes = menuService.getListMenusBySearch(categoryMenu, "", "", "", restaurant);
+        model.addAttribute("listMenuDetailRes", listMenuDetailRes);
+        Order order = new Order();
+        model.addAttribute("order", order);
+        return "customer/detailRestaurant";
+    }
+
     @PostMapping("/customer/searchMenu")
     public String getListMenuBySearch(@RequestParam(name = "resID") int resID, @RequestParam(required = false, name = "priceFrom", defaultValue = "" ) String priceFrom,
                                       @RequestParam(required = false, name = "priceTo", defaultValue = "") String priceTo,
